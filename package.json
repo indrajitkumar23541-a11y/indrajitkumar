@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-website-2.0",
+  "version": "2.0.0",
+  "description": "Indrajit Kumar - Full-Stack Developer & AI Systems Builder Portfolio",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
+  },
+  "keywords": [],
+  "author": "Indrajit Kumar",
+  "license": "ISC"
+}
