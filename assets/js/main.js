@@ -253,15 +253,84 @@ RESPONSE GUIDELINES:
         • Education: B.Tech Computer Science (2023–2027), Jagannath University, Jaipur.`
     };
 
-    function appendMessage(sender, htmlContent, isUser = false) {
+    function escapeHtml(str) {
+        if (typeof str !== 'string') return '';
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    function sanitizeHtml(html) {
+        if (!html) return '';
+        const template = document.createElement('template');
+        template.innerHTML = html;
+        const allowedTags = new Set(['STRONG', 'EM', 'B', 'I', 'CODE', 'PRE', 'UL', 'OL', 'LI', 'P', 'BR', 'A', 'DIV', 'SPAN', 'IMG']);
+        const allowedAttrs = {
+            'A': ['href', 'target', 'rel', 'style', 'class'],
+            'UL': ['style', 'class'],
+            'OL': ['style', 'class'],
+            'LI': ['style', 'class'],
+            'P': ['style', 'class'],
+            'SPAN': ['style', 'class'],
+            'DIV': ['style', 'class'],
+            'CODE': ['style', 'class'],
+            'IMG': ['src', 'alt', 'class']
+        };
+
+        function cleanNode(node) {
+            const children = Array.from(node.childNodes);
+            for (const child of children) {
+                if (child.nodeType === Node.ELEMENT_NODE) {
+                    const tagName = child.tagName.toUpperCase();
+                    if (!allowedTags.has(tagName)) {
+                        const textNode = document.createTextNode(child.textContent);
+                        node.replaceChild(textNode, child);
+                        continue;
+                    }
+
+                    // Remove all unapproved attributes or any on* event handlers (e.g. onerror, onload)
+                    const attrs = Array.from(child.attributes);
+                    const allowedForTag = allowedAttrs[tagName] || [];
+                    for (const attr of attrs) {
+                        const attrName = attr.name.toLowerCase();
+                        if (!allowedForTag.includes(attrName) || attrName.startsWith('on')) {
+                            child.removeAttribute(attr.name);
+                        }
+                    }
+
+                    // Prevent javascript:, vbscript:, and data: URLs in links
+                    if (tagName === 'A' && child.hasAttribute('href')) {
+                        const href = child.getAttribute('href').trim().toLowerCase();
+                        if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('#')) {
+                            child.removeAttribute('href');
+                        }
+                    }
+
+                    cleanNode(child);
+                }
+            }
+        }
+
+        cleanNode(template.content);
+        return template.innerHTML;
+    }
+
+    function appendMessage(sender, content, isUser = false) {
         if (!aiMessages) return;
         const bubble = document.createElement('div');
         bubble.className = `ai-bubble ${isUser ? 'user-bubble' : 'bot-bubble'}`;
         
         if (!isUser) {
-            bubble.innerHTML = `<div class="bubble-sender"><img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar"><span>${sender}</span></div><div>${htmlContent}</div>`;
+            const safeHtml = sanitizeHtml(content);
+            bubble.innerHTML = `<div class="bubble-sender"><img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar"><span>${escapeHtml(sender)}</span></div><div>${safeHtml}</div>`;
         } else {
-            bubble.innerHTML = `<div>${htmlContent}</div>`;
+            // User queries use textContent directly to completely eliminate XSS risk
+            const userContentDiv = document.createElement('div');
+            userContentDiv.textContent = content;
+            bubble.appendChild(userContentDiv);
         }
 
         aiMessages.appendChild(bubble);
@@ -366,36 +435,38 @@ RESPONSE GUIDELINES:
 
     function markdownToHtml(text) {
         if (!text) return '';
-        // If text already has HTML paragraphs/lists, preserve it cleanly
+        // If text already has trusted internal HTML paragraphs/lists, sanitize and return
         if (text.includes('<ul') || text.includes('<ol') || text.includes('<div') || text.includes('<p>')) {
-            return text;
+            return sanitizeHtml(text);
         }
 
         function formatInline(str) {
             if (!str) return '';
             const codeMap = [];
+            // 1. Extract and escape code blocks
             let s = str.replace(/`([^`]+)`/g, (_, code) => {
-                const escaped = code
-                    .replace(/&/g, '&amp;')
-                    .replace(/</g, '&lt;')
-                    .replace(/>/g, '&gt;');
-                codeMap.push(`<code>${escaped}</code>`);
+                codeMap.push(`<code>${escapeHtml(code)}</code>`);
                 return `@@CODE_${codeMap.length - 1}@@`;
             });
 
-            // Links [text](url)
-            s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">$1</a>');
+            // 2. Escape raw HTML entities in the remaining text
+            s = escapeHtml(s);
 
-            // Bold **text** or __text__
+            // 3. Links [text](url) - strictly validate http/https protocol
+            s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, linkText, url) => {
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">${linkText}</a>`;
+            });
+
+            // 4. Bold **text** or __text__
             s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
 
-            // Italic *text*
+            // 5. Italic *text*
             s = s.replace(/(?:^|\s)\*([^*\s][^*]*[^*\s]|[^*\s])\*(?=\s|$|[.,!?;:])/g, (match, p1) => {
                 return match.replace(`*${p1}*`, `<em>${p1}</em>`);
             });
 
-            // Restore code spans
+            // 6. Restore escaped code spans
             codeMap.forEach((c, idx) => {
                 s = s.replace(`@@CODE_${idx}@@`, c);
             });
@@ -441,7 +512,7 @@ RESPONSE GUIDELINES:
             outputLines.push('</ul>');
         }
 
-        return outputLines.join('\n');
+        return sanitizeHtml(outputLines.join('\n'));
     }
 
     async function queryGroqApi(userQuery) {
@@ -456,30 +527,32 @@ RESPONSE GUIDELINES:
         ];
 
         // 1. Attempt Vercel Serverless Backend Proxy (/api/chat)
+        let serverlessRes = null;
         try {
-            const serverlessRes = await fetch('/api/chat', {
+            serverlessRes = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ messages: boundedHistory })
             });
+        } catch {
+            // Network failure or static hosting without serverless functions -> proceed to fallback
+            serverlessRes = null;
+        }
 
+        if (serverlessRes) {
             if (serverlessRes.ok) {
-                const data = await serverlessRes.json();
+                const data = await serverlessRes.json().catch(() => ({}));
                 const botReply = data.choices?.[0]?.message?.content;
                 if (botReply) {
                     conversationHistory.push({ role: 'assistant', content: botReply });
                     return markdownToHtml(botReply);
                 }
             } else if (serverlessRes.status !== 404 && serverlessRes.status !== 405 && serverlessRes.status !== 501) {
+                // The proxy endpoint exists but returned an explicit backend error (e.g. 400 Bad Request, 429 Rate Limit, 500 Server Error)
                 const errData = await serverlessRes.json().catch(() => ({}));
                 throw new Error(errData.error || `Server chat proxy returned status ${serverlessRes.status}`);
             }
-        } catch (err) {
-            // Propagate explicit error from proxy (e.g. rate limit, config issue)
-            if (err.message && !err.message.includes('Failed to fetch')) {
-                throw err;
-            }
-            // Otherwise serverless endpoint not present (e.g. static hosting)
+            // If status is 404, 405, or 501, serverless proxy is not supported on this static environment; continue to fallback below
         }
 
         // 2. Client-side key fallback (for local development or custom override)

@@ -5,11 +5,13 @@
  */
 
 export default async function handler(req, res) {
+    // Set CORS headers for all responses
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
     // Handle CORS preflight
     if (req.method === 'OPTIONS') {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
         return res.status(204).end();
     }
 
@@ -69,9 +71,17 @@ export default async function handler(req, res) {
 
         const data = await response.json().catch(() => ({}));
 
-        // Verify that FormSubmit accepted the message or initiated activation
-        const isSuccess = response.ok || data.success === 'true' || data.success === true ||
-            (data.message && (data.message.includes('successfully') || data.message.includes('Activate') || data.message.includes('Check your email')));
+        // Verify that FormSubmit actually accepted the message (response must be ok AND not rejected by FormSubmit)
+        const isRejected = !response.ok || data.success === 'false' || data.success === false;
+        const isSuccess = !isRejected && (
+            data.success === 'true' ||
+            data.success === true ||
+            (typeof data.message === 'string' && (
+                data.message.includes('successfully') ||
+                data.message.includes('Activate') ||
+                data.message.includes('Check your email')
+            ))
+        );
 
         if (!isSuccess) {
             console.error('FormSubmit gateway rejected:', data);
