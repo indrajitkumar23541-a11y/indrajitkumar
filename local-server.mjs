@@ -155,13 +155,17 @@ const server = http.createServer(async (req, res) => {
         }
     }
 
-    // Static File Serving
+    // Static File Serving with filesystem-aware containment check
     if (pathname === '/') {
         pathname = '/index.html';
     }
 
-    const safePath = path.normalize(path.join(__dirname, pathname));
-    if (!safePath.toLowerCase().startsWith(__dirname.toLowerCase())) {
+    const resolvedBase = path.resolve(__dirname);
+    const safePath = path.resolve(resolvedBase, '.' + path.normalize(pathname));
+    const relativePath = path.relative(resolvedBase, safePath);
+    const isContained = !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
+
+    if (!isContained) {
         res.statusCode = 403;
         return res.end('Access Denied');
     }
@@ -198,6 +202,7 @@ server.on('error', (err) => {
     } else {
         console.error('Server error:', err);
     }
+    process.exit(1);
 });
 
 server.listen(PORT, () => {

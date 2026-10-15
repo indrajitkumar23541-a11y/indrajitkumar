@@ -42,13 +42,31 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'Missing or invalid messages payload' });
         }
 
-        // Bounded context window: keep system prompt at index 0, followed by the latest 12 turns
-        const systemPrompt = messages.find(m => m.role === 'system') || messages[0];
-        const nonSystemMessages = messages.filter(m => m.role !== 'system');
-        const boundedMessages = [
-            systemPrompt,
-            ...nonSystemMessages.slice(-12)
-        ];
+        // Validate and sanitize messages: ensure each item is a valid object with role and content
+        const validMessages = messages.filter(m => 
+            m && 
+            typeof m === 'object' && 
+            typeof m.role === 'string' && 
+            typeof m.content === 'string' &&
+            m.content.trim().length > 0
+        );
+
+        if (validMessages.length === 0) {
+            return res.status(400).json({ error: 'No valid messages with string role and content provided.' });
+        }
+
+        // Bounded context window: separate system prompt from conversation turns safely
+        const systemMessage = validMessages.find(m => m.role === 'system');
+        const conversationTurns = validMessages.filter(m => m.role !== 'system');
+
+        // Construct bounded message list: system prompt first (if present), followed by latest 12 conversation turns
+        const boundedMessages = systemMessage 
+            ? [systemMessage, ...conversationTurns.slice(-12)]
+            : conversationTurns.slice(-12);
+
+        if (boundedMessages.length === 0) {
+            return res.status(400).json({ error: 'Conversation messages payload is empty.' });
+        }
 
         // Get key securely from Vercel Environment Variables
         const apiKey = process.env.GROQ_API_KEY;
