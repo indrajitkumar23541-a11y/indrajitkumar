@@ -5,16 +5,42 @@
  */
 
 export default async function handler(req, res) {
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        return res.status(204).end();
+    }
+
+    // Health-check / ping endpoint
+    if (req.method === 'GET') {
+        return res.status(200).json({
+            status: 'ok',
+            service: 'Indrajit Portfolio Contact Gateway'
+        });
+    }
+
     if (req.method !== 'POST') {
-        res.setHeader('Allow', ['POST']);
+        res.setHeader('Allow', ['GET', 'POST', 'OPTIONS']);
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
     try {
-        const { name, email, subject, message } = req.body || {};
+        let body = req.body;
+        if (typeof body === 'string') {
+            try { body = JSON.parse(body); } catch { body = {}; }
+        }
+
+        const { name, email, subject, message } = body || {};
 
         if (!name || !email || !message) {
             return res.status(400).json({ error: 'Name, email, and message are required.' });
+        }
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            return res.status(400).json({ error: 'Please provide a valid email address.' });
         }
 
         // Pass through proper browser origin & referer headers
@@ -43,8 +69,9 @@ export default async function handler(req, res) {
 
         const data = await response.json().catch(() => ({}));
 
-        // Verify that FormSubmit actually accepted the message
-        const isSuccess = response.ok && (data.success === 'true' || data.success === true || (data.message && data.message.includes('successfully')));
+        // Verify that FormSubmit accepted the message or initiated activation
+        const isSuccess = response.ok || data.success === 'true' || data.success === true ||
+            (data.message && (data.message.includes('successfully') || data.message.includes('Activate') || data.message.includes('Check your email')));
 
         if (!isSuccess) {
             console.error('FormSubmit gateway rejected:', data);

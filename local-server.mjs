@@ -161,7 +161,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     const safePath = path.normalize(path.join(__dirname, pathname));
-    if (!safePath.startsWith(__dirname)) {
+    if (!safePath.toLowerCase().startsWith(__dirname.toLowerCase())) {
         res.statusCode = 403;
         return res.end('Access Denied');
     }
@@ -190,6 +190,14 @@ const server = http.createServer(async (req, res) => {
         const stream = fs.createReadStream(safePath);
         stream.pipe(res);
     });
+});
+
+server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+        console.error(`\n⚠️ Port ${PORT} is currently in use. Please stop the existing process or run with: PORT=3001 npm run dev\n`);
+    } else {
+        console.error('Server error:', err);
+    }
 });
 
 server.listen(PORT, () => {

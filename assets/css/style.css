@@ -1229,6 +1229,11 @@ a {
     border: 1px solid rgba(122, 75, 53, 0.18);
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* ==========================================================================
    FEATURED PROJECTS SECTION (CINEMATIC PRODUCT REELS)
    ========================================================================== */
@@ -1480,6 +1485,7 @@ a {
     display: flex;
     align-items: center;
     gap: 0.6rem;
+    flex-wrap: wrap;
 }
 
 .ai-status-pill {

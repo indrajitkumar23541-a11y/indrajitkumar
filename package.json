@@ -4,6 +4,7 @@
   "description": "Indrajit Kumar - Full-Stack Developer & AI Systems Builder Portfolio",
   "type": "module",
   "scripts": {
+    "start": "node local-server.mjs",
     "dev": "node local-server.mjs"
   },
   "keywords": [],

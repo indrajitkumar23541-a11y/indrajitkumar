@@ -296,7 +296,7 @@ RESPONSE GUIDELINES:
 
     function updateApiKeyUi() {
         if (isServerlessBackendAvailable) {
-            if (aiStatusText) aiStatusText.textContent = 'Groq Live · Llama 3.3';
+            if (aiStatusText) aiStatusText.textContent = 'Groq Live · Qwen 3.8';
             if (keyBtnLabel) keyBtnLabel.textContent = 'Secure Proxy Active';
             if (btnConfigureKey) {
                 btnConfigureKey.classList.add('connected');
@@ -307,7 +307,7 @@ RESPONSE GUIDELINES:
 
         const activeKey = localStorage.getItem('GROQ_API_KEY') || GROQ_CONFIG.apiKey;
         if (activeKey && activeKey.startsWith('gsk_')) {
-            if (aiStatusText) aiStatusText.textContent = 'Groq Live · AI Intel';
+            if (aiStatusText) aiStatusText.textContent = 'Groq Live · Qwen 3.8';
             if (keyBtnLabel) keyBtnLabel.textContent = 'Key Active';
             if (btnConfigureKey) btnConfigureKey.classList.add('connected');
         } else {
@@ -319,9 +319,9 @@ RESPONSE GUIDELINES:
 
     async function checkBackendAvailability() {
         try {
-            // Check if Vercel serverless /api/chat is reachable
+            // Check if serverless /api/chat is reachable via health-check GET
             const res = await fetch('/api/chat', { method: 'GET' });
-            if (res.status === 405 || res.status === 200) {
+            if (res.ok || res.status === 200 || res.status === 405) {
                 isServerlessBackendAvailable = true;
                 updateApiKeyUi();
             }
@@ -353,7 +353,7 @@ RESPONSE GUIDELINES:
             } else if (cleanKey.startsWith('gsk_')) {
                 localStorage.setItem('GROQ_API_KEY', cleanKey);
                 updateApiKeyUi();
-                appendMessage("Indrajit's AI Assistant", `✅ <strong>Groq API Key connected successfully!</strong> Now running live <strong>Llama 3.3 (70B)</strong>. Ask me anything about Indrajit!`);
+                appendMessage("Indrajit's AI Assistant", `✅ <strong>Groq API Key connected successfully!</strong> Now running live with Groq Cloud <strong>(Qwen 3.8 27B)</strong>. Ask me anything about Indrajit!`);
             } else {
                 alert("Invalid key format. Groq API keys start with 'gsk_'. Please check console.groq.com/keys.");
             }
@@ -365,49 +365,102 @@ RESPONSE GUIDELINES:
     checkBackendAvailability();
 
     function markdownToHtml(text) {
+        if (!text) return '';
+        // If text already has HTML paragraphs/lists, preserve it cleanly
+        if (text.includes('<ul') || text.includes('<ol') || text.includes('<div') || text.includes('<p>')) {
+            return text;
+        }
+
+        function formatInline(str) {
+            if (!str) return '';
+            const codeMap = [];
+            let s = str.replace(/`([^`]+)`/g, (_, code) => {
+                const escaped = code
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+                codeMap.push(`<code>${escaped}</code>`);
+                return `@@CODE_${codeMap.length - 1}@@`;
+            });
+
+            // Links [text](url)
+            s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">$1</a>');
+
+            // Bold **text** or __text__
+            s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+            s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+
+            // Italic *text*
+            s = s.replace(/(?:^|\s)\*([^*\s][^*]*[^*\s]|[^*\s])\*(?=\s|$|[.,!?;:])/g, (match, p1) => {
+                return match.replace(`*${p1}*`, `<em>${p1}</em>`);
+            });
+
+            // Restore code spans
+            codeMap.forEach((c, idx) => {
+                s = s.replace(`@@CODE_${idx}@@`, c);
+            });
+
+            return s;
+        }
+
         const lines = text.split('\n');
         let inList = false;
-        let processedLines = [];
+        const outputLines = [];
 
-        for (let line of lines) {
-            const trimmed = line.trim();
-            if (trimmed.startsWith('* ') || trimmed.startsWith('- ') || /^\d+\.\s/.test(trimmed)) {
+        for (let i = 0; i < lines.length; i++) {
+            const rawLine = lines[i];
+            const trimmed = rawLine.trim();
+
+            if (!trimmed) {
+                if (inList) {
+                    inList = false;
+                    outputLines.push('</ul>');
+                }
+                continue;
+            }
+
+            const isBullet = trimmed.startsWith('* ') || trimmed.startsWith('- ') || /^\d+[\.\)]\s/.test(trimmed);
+
+            if (isBullet) {
                 if (!inList) {
                     inList = true;
-                    processedLines.push('<ul style="margin: 0.4rem 0 0.4rem 1.25rem; line-height: 1.55;">');
+                    outputLines.push('<ul style="margin: 0.4rem 0 0.4rem 1.25rem; line-height: 1.55;">');
                 }
-                const bulletContent = trimmed.replace(/^[\*\-]\s+/, '').replace(/^\d+\.\s+/, '');
-                processedLines.push(`<li>${bulletContent}</li>`);
+                const bulletContent = trimmed.replace(/^[\*\-]\s+/, '').replace(/^\d+[\.\)]\s+/, '');
+                outputLines.push(`<li>${formatInline(bulletContent)}</li>`);
             } else {
                 if (inList) {
                     inList = false;
-                    processedLines.push('</ul>');
+                    outputLines.push('</ul>');
                 }
-                processedLines.push(line);
+                outputLines.push(`<p style="margin: 0.35rem 0;">${formatInline(trimmed)}</p>`);
             }
         }
+
         if (inList) {
-            processedLines.push('</ul>');
+            outputLines.push('</ul>');
         }
 
-        let html = processedLines.join('\n')
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/`([^`]+)`/g, '<code>$1</code>')
-            .replace(/\n\n/g, '<br><br>')
-            .replace(/\n/g, '<br>');
-        return html;
+        return outputLines.join('\n');
     }
 
     async function queryGroqApi(userQuery) {
         conversationHistory.push({ role: 'user', content: userQuery });
+
+        // Keep system prompt + last 12 messages for bounded request payload
+        const systemPrompt = conversationHistory.find(m => m.role === 'system') || conversationHistory[0];
+        const nonSystem = conversationHistory.filter(m => m.role !== 'system');
+        const boundedHistory = [
+            systemPrompt,
+            ...nonSystem.slice(-12)
+        ];
 
         // 1. Attempt Vercel Serverless Backend Proxy (/api/chat)
         try {
             const serverlessRes = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: conversationHistory })
+                body: JSON.stringify({ messages: boundedHistory })
             });
 
             if (serverlessRes.ok) {
@@ -419,15 +472,14 @@ RESPONSE GUIDELINES:
                 }
             } else if (serverlessRes.status !== 404 && serverlessRes.status !== 405 && serverlessRes.status !== 501) {
                 const errData = await serverlessRes.json().catch(() => ({}));
-                if (errData.error && errData.error.includes('GROQ_API_KEY')) {
-                    throw new Error(errData.error);
-                }
+                throw new Error(errData.error || `Server chat proxy returned status ${serverlessRes.status}`);
             }
         } catch (err) {
-            if (err.message && err.message.includes('GROQ_API_KEY')) {
+            // Propagate explicit error from proxy (e.g. rate limit, config issue)
+            if (err.message && !err.message.includes('Failed to fetch')) {
                 throw err;
             }
-            // Serverless endpoint not present (e.g. running on local python http.server)
+            // Otherwise serverless endpoint not present (e.g. static hosting)
         }
 
         // 2. Client-side key fallback (for local development or custom override)
@@ -441,7 +493,7 @@ RESPONSE GUIDELINES:
                 },
                 body: JSON.stringify({
                     model: GROQ_CONFIG.model,
-                    messages: conversationHistory,
+                    messages: boundedHistory,
                     temperature: 0.6,
                     max_tokens: 450
                 })
@@ -489,9 +541,11 @@ RESPONSE GUIDELINES:
     }
 
     async function handleUserInteraction(queryText) {
-        // Allow user to set key directly by typing "set key gsk_..."
-        if (queryText.toLowerCase().startsWith('set key ') || queryText.toLowerCase().startsWith('set_key ')) {
-            const keyPart = queryText.split(' ')[2]?.trim();
+        // Allow user to set key directly by typing "set key gsk_...", "set_key gsk_...", or "set-key gsk_..."
+        const lowerTrimmed = queryText.toLowerCase().trim();
+        if (lowerTrimmed.startsWith('set key ') || lowerTrimmed.startsWith('set_key ') || lowerTrimmed.startsWith('set-key ')) {
+            const parts = queryText.trim().split(/\s+/);
+            const keyPart = (parts[0].toLowerCase() === 'set' ? parts[2] : parts[1])?.trim();
             if (keyPart && keyPart.startsWith('gsk_')) {
                 localStorage.setItem('GROQ_API_KEY', keyPart);
                 updateApiKeyUi();
@@ -673,9 +727,19 @@ RESPONSE GUIDELINES:
                 submitBtn.disabled = false;
 
                 formFeedback.className = 'form-feedback error';
-                formFeedback.innerHTML = `Network notice: <a href="${mailtoUrl}">Click here to send directly via your Mail app</a> or email directly at <a href="mailto:indrajitkumar23541@gmail.com">indrajitkumar23541@gmail.com</a>.`;
-
-                window.location.href = mailtoUrl;
+                formFeedback.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 0.4rem; align-items: center; text-align: center;">
+                        <div>⚠️ Direct dispatch unreachable. Please send your message directly via one of these options:</div>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.35rem;">
+                            <a href="${mailtoUrl}" class="btn btn-sm btn-primary">
+                                <i class="fa-solid fa-envelope"></i> Send via Default Mail App
+                            </a>
+                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=indrajitkumar23541@gmail.com&su=${mailtoSubject}&body=${mailtoBody}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-secondary">
+                                <i class="fa-brands fa-google"></i> Send via Gmail Web
+                            </a>
+                        </div>
+                    </div>
+                `;
             }
         });
     }
@@ -702,7 +766,7 @@ RESPONSE GUIDELINES:
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)';
+                card.style.transform = '';
                 card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
             });
 
@@ -713,13 +777,3 @@ RESPONSE GUIDELINES:
     }
 
 });
-
-// Simple animation keyframe injected dynamically
-const styleTag = document.createElement('style');
-styleTag.innerHTML = `
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-`;
-document.head.appendChild(styleTag);
