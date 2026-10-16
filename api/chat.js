@@ -15,6 +15,8 @@ export default async function handler(req, res) {
         return res.status(204).end();
     }
 
+    const MODEL = 'qwen/qwen3.8-27b';
+
     // Health-check / ping endpoint
     if (req.method === 'GET') {
         const accept = req.headers['accept'] || '';
@@ -50,7 +52,7 @@ export default async function handler(req, res) {
         return res.status(200).json({
             status: 'ok',
             service: 'IndraIntel AI Engine',
-            model: 'indraintel-v2.0'
+            model: MODEL
         });
     }
 
@@ -115,7 +117,7 @@ export default async function handler(req, res) {
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'qwen/qwen3.8-27b',
+                model: MODEL,
                 messages: boundedMessages,
                 temperature: 0.6,
                 max_tokens: 450

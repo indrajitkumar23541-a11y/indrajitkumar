@@ -371,8 +371,12 @@ RESPONSE GUIDELINES:
     let isServerlessBackendAvailable = false;
 
     function updateApiKeyUi() {
-        if (aiStatusText) {
+        if (!aiStatusText) return;
+        const activeKey = localStorage.getItem('GROQ_API_KEY') || GROQ_CONFIG.apiKey;
+        if (isServerlessBackendAvailable || (activeKey && activeKey.startsWith('gsk_'))) {
             aiStatusText.textContent = 'IndraIntel AI · Online';
+        } else {
+            aiStatusText.textContent = 'IndraIntel · Offline';
         }
     }
 
