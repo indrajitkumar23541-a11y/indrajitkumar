@@ -1,6 +1,7 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 // Load .env if present
@@ -90,6 +91,13 @@ const server = http.createServer(async (req, res) => {
         res.json = function (data) {
             res.setHeader('Content-Type', 'application/json; charset=utf-8');
             res.end(JSON.stringify(data));
+            return res;
+        };
+        res.send = function (data) {
+            if (typeof data === 'object') {
+                return res.json(data);
+            }
+            res.end(data);
             return res;
         };
 
@@ -188,11 +196,36 @@ const server = http.createServer(async (req, res) => {
 
         const ext = path.extname(safePath).toLowerCase();
         const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+        const etag = `W/"${stats.size.toString(16)}-${Math.floor(stats.mtimeMs).toString(16)}"`;
+
+        // 304 Cache Validation
+        if (req.headers['if-none-match'] === etag) {
+            res.statusCode = 304;
+            return res.end();
+        }
+
+        res.setHeader('ETag', etag);
+        if (pathname.startsWith('/assets/')) {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        }
+
         res.statusCode = 200;
         res.setHeader('Content-Type', contentType);
 
-        const stream = fs.createReadStream(safePath);
-        stream.pipe(res);
+        const isCompressible = /^(text\/|application\/javascript|application\/json|image\/svg\+xml)/.test(contentType);
+        const acceptEncoding = req.headers['accept-encoding'] || '';
+
+        if (isCompressible && acceptEncoding.includes('gzip')) {
+            res.setHeader('Content-Encoding', 'gzip');
+            const stream = fs.createReadStream(safePath);
+            const gzip = zlib.createGzip({ level: 6 });
+            stream.pipe(gzip).pipe(res);
+        } else {
+            const stream = fs.createReadStream(safePath);
+            stream.pipe(res);
+        }
     });
 });
 
@@ -207,9 +240,10 @@ server.on('error', (err) => {
 
 server.listen(PORT, () => {
     console.log(`\n======================================================`);
-    console.log(` 🚀 Indrajit's Portfolio is running locally!`);
-    console.log(` 🌐 URL: http://localhost:${PORT}`);
-    console.log(` 🤖 AI Chatbot Proxy: http://localhost:${PORT}/api/chat`);
+    console.log(` 🚀 PORTFOLIO WEBSITE READY!`);
+    console.log(` 🌐 OPEN IN BROWSER: http://localhost:${PORT}`);
+    console.log(` ------------------------------------------------------`);
+    console.log(` 🤖 AI Chatbot Engine: /api/chat (Internal API)`);
     console.log(` 🔑 GROQ_API_KEY: ${process.env.GROQ_API_KEY ? 'Loaded from .env ✅' : 'Missing ⚠️'}`);
     console.log(`======================================================\n`);
 });

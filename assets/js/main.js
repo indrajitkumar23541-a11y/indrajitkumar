@@ -12,13 +12,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileToggle = document.getElementById('mobile-toggle');
     const navLinks = document.getElementById('nav-links');
 
+    let isScrolling = false;
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
-    });
+    }, { passive: true });
 
     if (mobileToggle && navLinks) {
         mobileToggle.addEventListener('click', () => {
@@ -325,7 +332,7 @@ RESPONSE GUIDELINES:
         
         if (!isUser) {
             const safeHtml = sanitizeHtml(content);
-            bubble.innerHTML = `<div class="bubble-sender"><img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar"><span>${escapeHtml(sender)}</span></div><div>${safeHtml}</div>`;
+            bubble.innerHTML = `<div class="bubble-sender"><img src="assets/images/ai_intel_avatar.webp" alt="IndraIntel" class="bubble-sender-avatar" width="24" height="24" loading="lazy" decoding="async"><span>${escapeHtml(sender)}</span></div><div>${safeHtml}</div>`;
         } else {
             // User queries use textContent directly to completely eliminate XSS risk
             const userContentDiv = document.createElement('div');
@@ -364,25 +371,8 @@ RESPONSE GUIDELINES:
     let isServerlessBackendAvailable = false;
 
     function updateApiKeyUi() {
-        if (isServerlessBackendAvailable) {
-            if (aiStatusText) aiStatusText.textContent = 'Groq Live · Qwen 3.8';
-            if (keyBtnLabel) keyBtnLabel.textContent = 'Secure Proxy Active';
-            if (btnConfigureKey) {
-                btnConfigureKey.classList.add('connected');
-                btnConfigureKey.title = 'Running securely via Vercel Serverless Proxy';
-            }
-            return;
-        }
-
-        const activeKey = localStorage.getItem('GROQ_API_KEY') || GROQ_CONFIG.apiKey;
-        if (activeKey && activeKey.startsWith('gsk_')) {
-            if (aiStatusText) aiStatusText.textContent = 'Groq Live · Qwen 3.8';
-            if (keyBtnLabel) keyBtnLabel.textContent = 'Key Active';
-            if (btnConfigureKey) btnConfigureKey.classList.add('connected');
-        } else {
-            if (aiStatusText) aiStatusText.textContent = 'Groq Cloud · AI Intel';
-            if (keyBtnLabel) keyBtnLabel.textContent = 'Connect Key';
-            if (btnConfigureKey) btnConfigureKey.classList.remove('connected');
+        if (aiStatusText) {
+            aiStatusText.textContent = 'IndraIntel AI · Online';
         }
     }
 
@@ -638,10 +628,10 @@ RESPONSE GUIDELINES:
             appendMessage("IndraIntel · Candidate Copilot", botHtml);
         } catch (err) {
             removeTypingIndicator();
-            console.error('Groq query error:', err);
+            console.error('AI query error:', err);
             appendMessage(
                 "IndraIntel · Candidate Copilot",
-                `⚠️ <em>Unable to reach Groq Cloud: ${err.message}</em><br><br>Here is the offline summary: ${fallbackKnowledgeBase.specialty}`
+                `⚠️ <em>IndraIntel is currently in offline mode.</em><br><br>Here is the verified dossier summary: ${fallbackKnowledgeBase.specialty}`
             );
         }
     }
@@ -824,21 +814,31 @@ RESPONSE GUIDELINES:
         const tiltCards = document.querySelectorAll('.cinematic-tilt, .project-card');
 
         tiltCards.forEach(card => {
+            let tiltRafId = null;
+
             card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // x position within the element
-                const y = e.clientY - rect.top;  // y position within the element
+                if (tiltRafId) return;
+                tiltRafId = requestAnimationFrame(() => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
 
-                const rotateX = ((y - centerY) / centerY) * -7; // max 7 deg tilt
-                const rotateY = ((x - centerX) / centerX) * 7;
+                    const rotateX = ((y - centerY) / centerY) * -7;
+                    const rotateY = ((x - centerX) / centerX) * 7;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-            });
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
+                    tiltRafId = null;
+                });
+            }, { passive: true });
 
             card.addEventListener('mouseleave', () => {
+                if (tiltRafId) {
+                    cancelAnimationFrame(tiltRafId);
+                    tiltRafId = null;
+                }
                 card.style.transform = '';
                 card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
             });

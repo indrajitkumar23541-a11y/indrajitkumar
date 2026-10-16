@@ -13,16 +13,29 @@
     <meta property="og:title" content="Indrajit Kumar — Full-Stack Developer & AI Systems Builder">
     <meta property="og:description" content="Transforming ideas into scalable digital products through AI Integration, modern web frameworks, and robust engineering.">
 
-    <!-- Google Fonts -->
+    <!-- DNS Prefetch & Preconnect for External CDNs -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Lucide Icons / Feather via CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Preload Critical Above-The-Fold Assets -->
+    <link rel="preload" href="assets/css/style.css" as="style">
+    <link rel="preload" href="assets/images/indrajit_profile.webp" as="image" type="image/webp" fetchpriority="high">
 
-    <!-- Stylesheet -->
+    <!-- Primary Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Google Fonts (Non-render-blocking with swap fallback) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"></noscript>
+
+    <!-- FontAwesome (Asynchronously loaded to eliminate blank-screen delay) -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 </head>
 <body>
 
@@ -37,7 +50,10 @@
         <div class="nav-container">
             <a href="#hero" class="brand-logo" aria-label="Indrajit Kumar Home">
                 <div class="logo-avatar-wrap">
-                    <img src="assets/images/indrajit_nav_avatar.png" alt="Indrajit Kumar" class="logo-avatar">
+                    <picture>
+                        <source srcset="assets/images/indrajit_nav_avatar.webp" type="image/webp">
+                        <img src="assets/images/indrajit_nav_avatar.png" alt="Indrajit Kumar" class="logo-avatar" width="38" height="38" decoding="async">
+                    </picture>
                 </div>
                 <span class="logo-text">Indrajit Kumar</span>
             </a>
@@ -122,7 +138,10 @@
                 <div class="hero-visual">
                     <div class="profile-card" id="hero-profile-card">
                         <div class="image-frame">
-                            <img src="assets/images/indrajit_profile.png" alt="Indrajit Kumar — Full-Stack Developer & AI Systems Specialist" class="profile-img" loading="eager">
+                            <picture>
+                                <source srcset="assets/images/indrajit_profile.webp" type="image/webp">
+                                <img src="assets/images/indrajit_profile.png" alt="Indrajit Kumar — Full-Stack Developer & AI Systems Specialist" class="profile-img" loading="eager" fetchpriority="high" decoding="async" width="480" height="480">
+                            </picture>
                         </div>
                     </div>
                 </div>
@@ -813,7 +832,10 @@
                         <div class="ai-console-header">
                             <div class="ai-header-left">
                                 <div class="ai-bot-avatar-wrap">
-                                    <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel AI Copilot" class="ai-bot-avatar-img">
+                                    <picture>
+                                        <source srcset="assets/images/ai_intel_avatar.webp" type="image/webp">
+                                        <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel AI Copilot" class="ai-bot-avatar-img" width="44" height="44" loading="lazy" decoding="async">
+                                    </picture>
                                 </div>
                                 <div class="ai-header-meta">
                                     <div class="ai-widget-title-row">
@@ -826,12 +848,8 @@
                             <div class="ai-header-right">
                                 <div class="ai-status-pill">
                                     <span class="status-dot-pulse"></span>
-                                    <span id="ai-status-text">Groq Live · Qwen 3.8</span>
+                                    <span id="ai-status-text">IndraIntel AI · Online</span>
                                 </div>
-                                <button type="button" class="btn-api-key" id="btn-configure-key" title="Manage Groq Cloud Key" aria-label="Manage Groq Cloud Key">
-                                    <i class="fa-solid fa-key"></i>
-                                    <span id="key-btn-label">Connect Key</span>
-                                </button>
                             </div>
                         </div>
 
@@ -839,7 +857,10 @@
                         <div class="ai-terminal-body" id="ai-messages">
                             <div class="ai-bubble bot-bubble">
                                 <div class="bubble-sender">
-                                    <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar">
+                                    <picture>
+                                        <source srcset="assets/images/ai_intel_avatar.webp" type="image/webp">
+                                        <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar" width="24" height="24" loading="lazy" decoding="async">
+                                    </picture>
                                     <span>IndraIntel · Candidate Copilot</span>
                                 </div>
                                 <p>Hello! I am an interactive dossier configured to answer any technical, architectural, or hiring questions about <strong>Indrajit Kumar</strong>. Ask me anything or click a quick prompt below:</p>
@@ -895,7 +916,10 @@
                         <div class="dossier-candidate-card">
                             <div class="candidate-meta-row">
                                 <div class="candidate-avatar-wrap">
-                                    <img src="assets/images/indrajit_profile_matched.jpg" alt="Indrajit Kumar" class="candidate-avatar-img">
+                                    <picture>
+                                        <source srcset="assets/images/indrajit_profile_matched.webp" type="image/webp">
+                                        <img src="assets/images/indrajit_profile_matched.jpg" alt="Indrajit Kumar" class="candidate-avatar-img" width="56" height="56" loading="lazy" decoding="async">
+                                    </picture>
                                 </div>
                                 <div class="candidate-info">
                                     <h5 class="candidate-name">Indrajit Kumar</h5>
@@ -1046,7 +1070,9 @@
                         <div>
                             <div class="form-card-header-row">
                                 <div class="form-header-left">
-                                    <i class="fa-regular fa-paper-plane form-title-icon"></i>
+                                    <div class="form-title-icon-badge">
+                                        <i class="fa-solid fa-paper-plane"></i>
+                                    </div>
                                     <div>
                                         <h3 class="contact-card-heading">Send a Direct Message</h3>
                                         <p class="contact-card-subtext">Fill out this quick form. I respond within 24 hours.</p>
@@ -1123,7 +1149,7 @@
         <span id="toast-message">Email address copied to clipboard!</span>
     </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/main.js"></script>
+    <!-- Scripts (deferred for non-blocking browser rendering) -->
+    <script src="assets/js/main.js" defer></script>
 </body>
 </html>
