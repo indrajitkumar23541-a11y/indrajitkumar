@@ -207,7 +207,7 @@ const server = http.createServer(async (req, res) => {
         res.setHeader('ETag', etag);
         res.setHeader('Vary', 'Accept-Encoding');
         if (pathname.startsWith('/assets/images/')) {
-            res.setHeader('Cache-Control', 'public, max-age=86400');
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
         } else {
             res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
         }
