@@ -902,50 +902,14 @@ RESPONSE GUIDELINES:
     }
 
     /* -------------------------------------------------------------------------
-       8. INTERACTIVE RESUME PREVIEW MODAL
+       8. DIRECT RESUME PDF OPEN IN NEW TAB (NATIVE & INSTANT)
+       All resume links open 'assets/docs/Indrajit_Kumar_Resume.pdf' directly
+       in a new browser tab with full native PDF viewer capabilities.
        ------------------------------------------------------------------------- */
     const resumeModal = document.getElementById('resume-modal');
-    const resumeModalClose = document.getElementById('resume-modal-close');
-    const viewResumeTriggers = document.querySelectorAll('.js-view-resume');
-
-    function openResumeModal(e) {
-        if (!resumeModal) return;
-        // On screens wider than 640px, prevent full-page navigation and open sleek modal
-        if (window.innerWidth > 640 && e && e.preventDefault) {
-            e.preventDefault();
-        }
-        resumeModal.removeAttribute('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeResumeModal() {
-        if (!resumeModal) return;
-        resumeModal.setAttribute('hidden', '');
-        document.body.style.overflow = '';
-    }
-
     if (resumeModal) {
-        viewResumeTriggers.forEach(btn => {
-            btn.addEventListener('click', openResumeModal);
-        });
-
-        if (resumeModalClose) {
-            resumeModalClose.addEventListener('click', closeResumeModal);
-        }
-
-        // Close on clicking backdrop outside container
-        resumeModal.addEventListener('click', (e) => {
-            if (e.target === resumeModal) {
-                closeResumeModal();
-            }
-        });
-
-        // Close on ESC key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !resumeModal.hasAttribute('hidden')) {
-                closeResumeModal();
-            }
-        });
+        resumeModal.setAttribute('hidden', '');
+        resumeModal.style.display = 'none';
     }
 
 });
