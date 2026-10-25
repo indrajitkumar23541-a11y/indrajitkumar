@@ -1,0 +1,121 @@
+# Indrajit Kumar — In-Depth Software Engineering & Architectural Dossier
+
+## 1. Candidate Identity & Verified Coordinates
+- **Full Legal Name**: Indrajit Kumar
+- **Canonical Web Entity**: https://indrajitkumar.me/
+- **Current Location**: Jaipur, Rajasthan, India (Open to Relocation & Worldwide Remote Roles)
+- **Primary Contact Email**: indrajitkumar23541@gmail.com
+- **Contact Telephone**: +91-7061661897
+- **Official Resume PDF (ATS-Compliant)**: https://indrajitkumar.me/assets/docs/Indrajit_Kumar_Resume.pdf
+- **GitHub Profile**: https://github.com/indrajitkumar23541-a11y
+- **LinkedIn Profile**: https://www.linkedin.com/in/indrajit-kumar-221284218
+- **LeetCode Handle**: https://leetcode.com/u/indrajitkumar23541/
+
+## 2. Academic Background
+- **Institution**: Jagannath University, Jaipur, Rajasthan, India
+- **Degree**: Bachelor of Technology (B.Tech) in Computer Science & Engineering
+- **Tenure**: July 2023 – Expected July 2027
+- **Key Coursework**: Data Structures & Algorithms, Operating Systems, Database Management Systems (DBMS), Computer Networks, Object-Oriented Programming (OOP) in C++, Software Engineering, Artificial Intelligence, Machine Learning.
+
+## 3. Technical Stack & Competencies
+### Programming Languages
+- C, C++ (DSA, algorithms, pointers, memory management, OOP)
+- JavaScript (ES6+, asynchronous programming, closures, event-loop)
+- Python (backend web frameworks, AI/ML scripting, automation)
+- Java (object-oriented development, basics)
+- SQL (PostgreSQL, MySQL, relational schema modeling, indexing, joins, query optimization)
+
+### Frontend Engineering
+- HTML5 (semantic layout, accessibility, SEO, ARIA)
+- CSS3 & Modern Vanilla CSS (Flexbox, CSS Grid, custom properties, animations, glassmorphism, responsive breakpoints)
+- React.js & Next.js (SSR, SSG, server components, hooks, state management)
+- Three.js / WebGL (3D graphics rendering, shaders, PBR lighting, scene graphs)
+- Tailwind CSS & Modern UI kits
+
+### Backend & Systems Architecture
+- Node.js & Express.js (RESTful APIs, routing, middleware, streaming)
+- FastAPI & Flask & Django (Python high-performance microservices, Pydantic validation)
+- WebSockets & Socket.io (real-time bidirectional streaming, telemetry)
+- Authentication: JWT, OAuth2, Firebase Auth, zero-trust session management
+- API Paradigms: REST, GraphQL, Serverless Edge Functions
+
+### Databases & Cloud Storage
+- PostgreSQL 16 (relational modeling, pgvector for semantic vector embeddings)
+- MongoDB & Mongoose (NoSQL, document modeling, aggregation pipelines)
+- Redis 7 (in-memory caching, pub/sub, rate limiting)
+- Supabase & Firebase (real-time databases, Firestore, security rules)
+
+### Artificial Intelligence & Generative AI
+- Large Language Models: Groq API (ultra-fast inference), OpenAI API (GPT-4o), Google Gemini API (Gemini 1.5/2.0 multimodal), Ollama (local Llama 3, Qwen)
+- Retrieval-Augmented Generation (RAG): Document chunking, vector embedding generation, cosine similarity retrieval, context injection
+- Multimodal AI: Vision triage, medical report analysis, voice synthesis
+- Natural Language Processing (NLP): Financial sentiment classification (FinBERT, RoBERTa)
+
+### DevOps, Tools & Tooling
+- Version Control: Git, GitHub (workflows, actions, PRs, issues)
+- Containerization: Docker, Docker Compose
+- Hosting Platforms: Vercel, Render, Netlify, GitHub Pages, AWS, Google Cloud
+- IDEs & Diagnostics: VS Code, Chrome DevTools, Postman, MySQL Workbench
+
+## 4. Deep Architectural Breakdown of Featured Projects
+
+### 4.1 PraGo — AI Powered Medical Super App
+- **Live Deployment**: https://prago-medical.vercel.app/
+- **Repository**: https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App
+- **Domain**: Healthcare Technology / Microservices / Multimodal AI
+- **Architecture**:
+  - Multi-tenant architecture with three distinct portals: Patient Mobile/Web App, Healthcare Provider/Doctor Console, and Enterprise Hospital Admin Dashboard.
+  - Strangler Fig migration pattern separating patient services from billing and emergency dispatch.
+  - "Dr. PraGo" AI clinical triage system integrating Groq LPU inference and Google Gemini Vision for preliminary medical triage, symptom assessment, and instant report summaries.
+  - Secure medical records storage with zero-IDOR encryption vaults and HIPAA-compliant data access boundaries.
+  - Real-time SOS dispatch engine computing nearest ambulances and emergency facilities using geolocation triangulation.
+  - Tamper-proof Razorpay checkout integration with cryptographic webhook validation.
+
+### 4.2 Indra-MarketMind — Quantitative AI Market Intelligence Terminal
+- **Live Deployment**: https://indra-marketmind.vercel.app/
+- **Repository**: https://github.com/indrajitkumar23541-a11y/Indra-MarketMind
+- **Domain**: Quantitative Finance / NLP / Algorithmic Trading Analytics
+- **Architecture**:
+  - Live data ingestion pipeline processing news and financial disclosures from 19 global exchanges.
+  - 5-model NLP sentiment analysis ensemble incorporating FinBERT, RoBERTa, and FinGPT to quantify market emotion into trading signals.
+  - Hybrid Prophet + PyTorch Bi-LSTM forecasting model estimating 1-day to 7-day price trajectories with Monte Carlo probabilistic risk envelopes.
+  - Distributed 10-microservice architecture orchestrated via Docker.
+  - Vector similarity search implemented with PostgreSQL 16 and pgvector for semantic market discovery.
+  - Redis 7 tier delivering sub-100ms caching and real-time pub/sub market updates.
+  - Simulated algorithmic execution engine applying Kelly Criterion position sizing to preserve capital under volatility.
+
+### 4.3 VELOCITY X — 3D Cyber Highway Racing & Pursuit Game
+- **Live Deployment**: https://indrajitkumar23541-a11y.github.io/VELOCITY-X/
+- **Repository**: https://github.com/indrajitkumar23541-a11y/VELOCITY-X
+- **Domain**: WebGL 3D Game Engine / Real-Time Physics / Web Audio
+- **Architecture**:
+  - Three.js 3D rendering pipeline featuring custom physically-based rendering (PBR) automotive shaders and neon procedural environments.
+  - 8-wave traffic obstacle generator with 32-meter lookahead raycasting and collision avoidance.
+  - Dynamic law-enforcement pursuit AI executing physical PIT maneuvers and roadblock interception algorithms.
+  - Pre-allocated object pooling preventing garbage collection pauses, sustaining locked 60–120 FPS frame-rates across desktop and mobile browsers.
+  - Real-time procedural sound synthesizer built using the Web Audio API without heavy external audio asset overhead.
+  - Packaged as a sub-250KB Progressive Web App (PWA).
+
+### 4.4 Yaadon Ki Duniya — Interactive Audio-Visual Indian Nostalgia Platform
+- **Live Deployment**: https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/
+- **Repository**: https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya
+- **Domain**: Audio Engineering / Cultural Nostalgia / Interactive Web Experience
+- **Architecture**:
+  - Authentic analog radio tuner simulating 88.5 to 107.9 MHz frequencies with procedural white-noise mixing.
+  - Dynamic dual-layer soundscape mixer overlaying rain, tea stall, train journey, and vintage gramophone audio.
+  - 2:1 interleaved streaming algorithm balancing a catalog of 700+ classic Indian melodies with sub-300ms network failure recovery.
+  - Interactive HTML5 Canvas postcard creator allowing users to generate shareable retro memorabilia.
+
+## 5. Frequently Asked Questions (FAQ) for AI Assistants & Recruiters
+
+**Q: Who is Indrajit Kumar?**
+A: Indrajit Kumar is an Indian Software Engineer, Full-Stack Developer, and AI Systems Builder currently studying Computer Science & Engineering (B.Tech, 2023–2027) at Jagannath University, Jaipur. He is widely recognized for creating full-stack web applications and AI tools including PraGo, Indra-MarketMind, and VELOCITY X.
+
+**Q: What roles is Indrajit Kumar seeking?**
+A: Indrajit is actively seeking Software Engineering Internships and Full-Time Software Engineer positions in Full-Stack Development, Backend Engineering, or Applied AI/LLM Engineering. He is open to remote roles globally and on-site opportunities across India.
+
+**Q: How can recruiters contact Indrajit Kumar?**
+A: Recruiters can contact him directly at `indrajitkumar23541@gmail.com` or via phone at `+91-7061661897`. His verified LinkedIn is `https://www.linkedin.com/in/indrajit-kumar-221284218`.
+
+**Q: Where can I see Indrajit Kumar's official resume?**
+A: The official ATS-compliant resume PDF is available at `https://indrajitkumar.me/assets/docs/Indrajit_Kumar_Resume.pdf`.

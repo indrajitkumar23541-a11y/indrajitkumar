@@ -1,0 +1,60 @@
+# Indrajit Kumar — Software Engineer & AI Systems Developer
+
+> Official machine-readable dossier for Indrajit Kumar, a Full-Stack Software Engineer and AI Systems Specialist based in Jaipur, Rajasthan, India.
+
+## Professional Summary
+Indrajit Kumar is a Software Engineer specializing in Full-Stack Web Development, Backend Architecture, and Artificial Intelligence (GenAI, LLMs, RAG). He is currently pursuing a B.Tech in Computer Science & Engineering (2023 – 2027) at Jagannath University, Jaipur. He builds production-grade web applications, multimodal AI systems, and interactive 3D WebGL experiences.
+
+- **Full Name**: Indrajit Kumar
+- **Role**: Software Engineer | Full-Stack Developer | AI Systems Builder
+- **Education**: B.Tech in Computer Science & Engineering (Jul 2023 – Jul 2027), Jagannath University, Jaipur, Rajasthan, India
+- **Availability**: Actively seeking Software Engineering Internships and Full-Time Roles (Open to On-site & Remote)
+- **Email**: indrajitkumar23541@gmail.com
+- **Phone**: +91-7061661897
+- **Portfolio Website**: https://indrajitkumar.me/
+- **Official Resume PDF**: https://indrajitkumar.me/assets/docs/Indrajit_Kumar_Resume.pdf
+- **GitHub**: https://github.com/indrajitkumar23541-a11y
+- **LinkedIn**: https://www.linkedin.com/in/indrajit-kumar-221284218
+- **LeetCode**: https://leetcode.com/u/indrajitkumar23541/
+
+## Core Technical Skills
+- **Languages**: C, C++ (DSA & System Programming), Python, JavaScript (ES6+), Java, SQL
+- **Frontend**: HTML5, CSS3, React.js, Next.js, Vite, Tailwind CSS, Responsive Design, WebGL (Three.js)
+- **Backend & APIs**: Node.js, Express.js, FastAPI, Django, Flask, REST APIs, GraphQL, WebSockets, Socket.io, Microservices Architecture
+- **Databases**: PostgreSQL (pgvector), MySQL, MongoDB, SQLite, Supabase, Firebase
+- **AI & Machine Learning**: Generative AI, LLM Integration (Groq, OpenAI, Google Gemini, Ollama, Llama 3, Qwen), Retrieval-Augmented Generation (RAG), Prompt Engineering, PyTorch, TensorFlow
+- **DevOps & Cloud**: Git, GitHub, Docker, AWS, Google Cloud Platform (GCP), Vercel, Render, Netlify, Linux/Bash
+
+## Featured Engineering Projects
+
+### 1. PraGo — AI Powered Medical Super App
+- **Overview**: An enterprise multi-tenant microservices healthcare ecosystem featuring AI-assisted medical triage, role-based portals for patients, doctors, and hospital administrators.
+- **Key Capabilities**: Dr. PraGo multimodal AI clinical triage (Groq & Gemini Vision), Central API Gateway, Strangler Fig architecture, tamper-proof Razorpay checkout, zero-IDOR encrypted medical vaults, real-time emergency SOS geo-dispatching, and Docker containerization.
+- **Live Demo**: https://prago-medical.vercel.app/
+- **Source Code**: https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App
+
+### 2. Indra-MarketMind — Real-Time Quantitative AI Market Intelligence Terminal
+- **Overview**: A quantitative market analytics and sentiment analysis platform correlating real-time financial news with stock price movements.
+- **Key Capabilities**: 5-model NLP sentiment ensemble (FinBERT, RoBERTa, FinGPT), hybrid Prophet + PyTorch Bi-LSTM price forecaster with Monte Carlo risk cones, 19 global exchange radar, 10-microservice mesh, PostgreSQL 16 + pgvector, Redis 7 caching, sub-100ms Vercel Edge response, CyberShield security, automated paper trading with Kelly Criterion risk controls.
+- **Live Demo**: https://indra-marketmind.vercel.app/
+- **Source Code**: https://github.com/indrajitkumar23541-a11y/Indra-MarketMind
+
+### 3. VELOCITY X — 3D Cyber Highway Racing & Pursuit Game
+- **Overview**: Console-grade 3D WebGL highway pursuit racing engine built for modern browsers.
+- **Key Capabilities**: Three.js physically based rendering (PBR) automotive clearcoats, 8-wave staggered slalom traffic AI with 32m lookahead, aggressive state police interceptors with physical PIT maneuvers, procedural Web Audio synthesizer, locked 60–120 FPS envelope via pre-allocated object pooling, instanced mesh draw-calls (<45 calls), 20Hz-throttled telemetry bridge, and sub-250KB distribution.
+- **Live Demo**: https://indrajitkumar23541-a11y.github.io/VELOCITY-X/
+- **Source Code**: https://github.com/indrajitkumar23541-a11y/VELOCITY-X
+
+### 4. Yaadon Ki Duniya — Interactive Audio-Visual Indian Nostalgia Platform
+- **Overview**: An immersive cultural web experience bringing vintage Indian memories, radio, and ambient soundscapes to life.
+- **Key Capabilities**: 6-environment ambient soundscape engine, zero-latency procedural Web Audio synthesizer, analog 88.5–107.9 MHz FM radio tuner, proprietary 2:1 interleaved playback algorithm balancing 700+ song catalog, dynamic dual-layer audio mixer, sub-300ms stream error recovery, and HTML5 Canvas retro postcard generator.
+- **Live Demo**: https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/
+- **Source Code**: https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya
+
+## Certifications & Honors
+- **PCAP: Programming Essentials in Python** — Cisco Networking Academy & OpenEDG Python Institute (July 2024)
+- **Introduction to Cybersecurity** — Cisco Networking Academy (June 2025)
+- **SWOC 2026 Certificate of Appreciation** (2026)
+
+## Extended Documentation
+For comprehensive project architecture diagrams, schema specifications, and in-depth candidate dossier, see [llms-full.txt](https://indrajitkumar.me/llms-full.txt).

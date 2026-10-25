@@ -3087,3 +3087,360 @@ a {
         margin-left: 0;
     }
 }
+
+/* ==========================================================================
+   RESUME & CERTIFICATIONS COMPONENT STYLES
+   ========================================================================== */
+
+/* Navbar Resume Button */
+.nav-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+}
+.nav-resume-btn i {
+    color: var(--coffee-primary);
+}
+@media (max-width: 820px) {
+    .nav-resume-btn {
+        display: none;
+    }
+}
+
+/* Contact Section Verified Resume Banner */
+.channel-resume-box {
+    margin-top: 0.85rem;
+    padding: 0.85rem 1rem;
+    background: #FFFFFF;
+    border: 1px solid var(--coffee-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-fast);
+}
+.channel-resume-box:hover {
+    border-color: var(--coffee-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+.channel-resume-content {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.channel-resume-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    background: var(--coffee-light);
+    color: var(--coffee-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    flex-shrink: 0;
+}
+.channel-resume-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+.channel-resume-text strong {
+    font-size: 0.86rem;
+    color: var(--text-espresso);
+    font-family: var(--font-heading);
+}
+.channel-resume-text span {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+.channel-resume-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+@media (max-width: 600px) {
+    .channel-resume-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    .channel-resume-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+/* Contact Phone Tag */
+.contact-phone-tag {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--coffee-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.25rem 0.65rem;
+    background: var(--coffee-light);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-fast);
+}
+.contact-phone-tag:hover {
+    background: var(--coffee-primary);
+    color: #FFFFFF;
+    transform: translateY(-1px);
+}
+
+/* Education Verified Certifications */
+.edu-cert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.65rem;
+}
+.edu-cert-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.85rem;
+    background: var(--bg-card-subtle);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+}
+.edu-cert-item:hover {
+    background: #FFFFFF;
+    border-color: var(--coffee-border);
+    transform: translateX(3px);
+}
+.cert-icon-wrap {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    color: var(--coffee-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+.cert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+.cert-details strong {
+    font-size: 0.82rem;
+    color: var(--text-espresso);
+    font-weight: 600;
+}
+.cert-details span {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   RESUME PREVIEW MODAL
+   ========================================================================== */
+.resume-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 13, 10, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.resume-modal-backdrop:not([hidden]) {
+    opacity: 1;
+    visibility: visible;
+}
+.resume-modal-container {
+    width: 100%;
+    max-width: 960px;
+    height: 90vh;
+    max-height: 920px;
+    background: #FFFFFF;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--coffee-border);
+    box-shadow: var(--shadow-cinematic);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.96) translateY(12px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.resume-modal-backdrop:not([hidden]) .resume-modal-container {
+    transform: scale(1) translateY(0);
+}
+.resume-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.95rem 1.4rem;
+    border-bottom: 1px solid var(--border-subtle);
+    background: var(--bg-card-subtle);
+    gap: 1rem;
+}
+.resume-modal-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+.resume-modal-icon-badge {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: var(--coffee-light);
+    color: var(--coffee-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+.resume-modal-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-espresso);
+    margin: 0;
+    font-family: var(--font-heading);
+}
+.resume-modal-subtitle {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    margin: 0.1rem 0 0 0;
+}
+.resume-modal-ctrls {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-shrink: 0;
+}
+.resume-modal-close-btn {
+    background: #FFFFFF;
+    border: 1px solid var(--border-subtle);
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    color: var(--text-mocha);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.resume-modal-close-btn:hover {
+    background: var(--coffee-primary);
+    color: #FFFFFF;
+    border-color: var(--coffee-primary);
+    transform: rotate(90deg);
+}
+.resume-modal-body {
+    flex: 1;
+    position: relative;
+    background: #525659;
+    overflow: hidden;
+}
+.resume-pdf-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #525659;
+    display: block;
+}
+.resume-fallback-notice {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30, 20, 16, 0.85);
+    color: #FFFFFF;
+    padding: 0.55rem 1.15rem;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    backdrop-filter: blur(4px);
+    z-index: 2;
+    pointer-events: auto;
+}
+.resume-fallback-notice a {
+    color: #FFFFFF;
+    text-decoration: underline;
+    font-weight: 600;
+}
+.resume-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 1.4rem;
+    background: #FFFFFF;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 0.74rem;
+    color: var(--text-muted);
+}
+.resume-footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+.resume-meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+.resume-meta-badge i {
+    color: var(--coffee-primary);
+}
+.resume-footer-esc-hint kbd {
+    background: var(--bg-card-subtle);
+    border: 1px solid var(--border-subtle);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+}
+
+@media (max-width: 768px) {
+    .resume-modal-backdrop {
+        padding: 0.5rem;
+    }
+    .resume-modal-container {
+        height: 94vh;
+        border-radius: var(--radius-md);
+    }
+    .resume-modal-header {
+        padding: 0.75rem 1rem;
+    }
+    .resume-modal-subtitle {
+        display: none;
+    }
+    .resume-modal-footer {
+        padding: 0.5rem 1rem;
+    }
+    .resume-footer-esc-hint {
+        display: none;
+    }
+}
+

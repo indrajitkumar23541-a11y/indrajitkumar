@@ -1,0 +1,58 @@
+# ==============================================================================
+# ROBOTS.TXT — Indrajit Kumar Portfolio & AI Knowledge Base
+# Canonical Domain: https://indrajitkumar.me/
+# Optimized for Search Engines (Google, Bing) and AI Search Agents (ChatGPT, Perplexity, Claude, Gemini)
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Explicitly Allow Major Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Explicitly Welcome AI Search Engines & Retrieval Agents (GEO / AIO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Canonical Sitemap and Machine-Readable LLM Knowledge Feeds
+Sitemap: https://indrajitkumar.me/sitemap.xml
+# AI Model Knowledge Endpoint (https://llmstxt.org)
+# LLMs-Text: https://indrajitkumar.me/llms.txt

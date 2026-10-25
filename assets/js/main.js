@@ -186,38 +186,48 @@ document.addEventListener('DOMContentLoaded', () => {
         endpoint: 'https://api.groq.com/openai/v1/chat/completions'
     };
 
-    // Comprehensive context for Groq Llama 3.3
+    // Comprehensive context for Groq Llama 3.3 / Qwen
     const INDRAJIT_SYSTEM_PROMPT = `You are the personal AI Assistant for Indrajit Kumar, integrated into his developer portfolio.
 Your role is to answer questions from recruiters, hiring managers, and engineers about Indrajit's technical skills, projects, background, and hiring availability.
 
 VERIFIED DOSSIER ON INDRAJIT KUMAR:
 - Full Name: Indrajit Kumar
-- Professional Identity: Software Engineer | Full-Stack Development & AI Integration
-- Education: B.Tech in Computer Science & Engineering (2023 – Expected June 2027) at Jagannath University, Jaipur, India.
+- Professional Identity: Software Engineer | Full-Stack Development & AI Integration | Product Builder
+- Education: B.Tech in Computer Science (Jul 2023 – Expected Jul 2027) at Jagannath University, Jaipur, Rajasthan, India. Coursework: Data Structures & Algorithms, Operating Systems, DBMS, Computer Networks, OOP, AI, ML.
 - Technical Specialization: Full-Stack Web Development, Backend Architecture, Database Systems & AI/LLM Integration.
 - Technical Stack:
-  • Frontend: React.js, Next.js, HTML5, CSS3, JavaScript (ES6+), TypeScript, Tailwind CSS
-  • Backend: Node.js, Express.js, FastAPI, Python, Django, REST APIs, WebSockets
-  • Databases: PostgreSQL, MongoDB, SQL, Vector Databases
-  • AI & GenAI: Groq API, Ollama, Llama 3, Google Gemini API, RAG (Retrieval-Augmented Generation), Prompt Engineering, Semantic Embeddings, Computer Vision
-  • Core Fundamentals: C++, Data Structures & Algorithms (DSA), OOP, DBMS, OS, System Design basics
+  • Languages: C, C++ (DSA), JavaScript (ES6+), Python, Java, SQL
+  • Frontend: HTML5, CSS3, React.js, Next.js, Vite, Tailwind CSS
+  • Backend: Node.js, Express.js, Django, Flask, FastAPI, GraphQL, Socket.io, WebSocket, REST API, JWT Authentication, Firebase Authentication, Firebase, Supabase, AWS, Google Cloud
+  • Databases: MySQL, PostgreSQL, SQLite, MongoDB
+  • AI/ML: AI Integration, Generative AI, Prompt Engineering, LLM Integration, OpenAI API, Google Gemini API, Grok API, Ollama, Llama 3, RAG, Qwen, TensorFlow, PyTorch
+  • DevOps & Tools: Git, GitHub, VS Code, Android Studio, Docker, Firebase, Vercel, Render, Netlify, MySQL Workbench
+- Industry Certifications:
+  • PCAP: Programming Essentials in Python (Cisco Networking Academy & OpenEDG Python Institute, July 2024)
+  • Introduction to Cybersecurity (Cisco Networking Academy, June 2025)
+  • SWOC 2026 – Certificate of Appreciation (2026)
 - Featured Projects:
-  1. Indra-MarketMind: AI-Powered Market Sentiment Intelligence Platform. Correlating live financial news sentiment with stock price volatility to emit real-time market trend signals. (Live: https://indra-marketmind.vercel.app/ | GitHub: https://github.com/indrajitkumar23541-a11y/Indra-MarketMind)
-  2. VELOCITY-X: Next-generation 3D WebGL highway pursuit engine engineered with Three.js PBR automotive clearcoats, real-time procedural acoustics, aggressive interceptor AI, locked 60–120 FPS envelope, and 100% offline PWA architecture. (Live: https://indrajitkumar23541-a11y.github.io/VELOCITY-X/ | GitHub: https://github.com/indrajitkumar23541-a11y/VELOCITY-X)
-  3. PraGo Medical App: Enterprise AI Healthcare Ecosystem featuring Patient App, Business Portal, and Admin Platform built with microservices, AI diagnostics, React, Node.js, and Docker. (Live: https://prago-medical.vercel.app/ | GitHub: https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App)
-  4. Yaadon Ki Duniya: A nostalgic web experience bringing old Indian memories to life through music, ambient sounds, and immersive visuals. (Live: https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/ | GitHub: https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya)
+  1. PraGo - AI Powered Medical Super App: Multi-tenant microservices healthcare platform with Dr. PraGo multimodal AI clinical triage (Groq & Gemini Vision), Central API Gateway, 3 role-based portals (Patient, Doctor, Admin), Strangler Fig architecture, tamper-proof Razorpay checkout, zero-IDOR encrypted medical vaults, real-time emergency SOS geo-dispatching, Docker. (Live: https://prago-medical.vercel.app/ | GitHub: https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App)
+  2. Indra-MarketMind: Real-Time Quantitative AI Market Intelligence Terminal. 5-model NLP sentiment ensemble (FinBERT, RoBERTa, FinGPT), hybrid Prophet + PyTorch Bi-LSTM price forecaster with Monte Carlo risk cones, 19 global exchange session radar, 10-microservice mesh, PostgreSQL 16 + pgvector, Redis 7, sub-100ms Vercel Edge caching, CyberShield security, automated paper trading with Kelly Criterion risk controls. (Live: https://indra-marketmind.vercel.app/ | GitHub: https://github.com/indrajitkumar23541-a11y/Indra-MarketMind)
+  3. VELOCITY X — 3D Cyber Highway Racing & Pursuit Game: Console-grade 3D WebGL highway pursuit racing engine featuring PBR automotive clearcoats, 8-wave staggered slalom traffic AI with 32m lookahead, aggressive state police interceptors with physical PIT maneuvers, procedural Web Audio synthesizer, locked 60–120 FPS envelope via pre-allocated object pooling, instanced mesh draw-calls (<45 calls), 20Hz-throttled React telemetry bridge, sub-250KB distribution. (Live: https://indrajitkumar23541-a11y.github.io/VELOCITY-X/ | GitHub: https://github.com/indrajitkumar23541-a11y/VELOCITY-X)
+  4. Yaadon Ki Duniya — Interactive Audio-Visual Indian Nostalgia Platform: 90s Indian nostalgic streaming platform, 6-environment ambient soundscape engine, zero-latency procedural Web Audio synthesizer, analog 88.5–107.9 MHz FM radio tuner, proprietary mathematical 2:1 interleaved playback algorithm balancing 700+ song catalog, dynamic dual-layer audio mixer, sub-300ms stream error recovery, HTML5 Canvas retro postcard generator. (Live: https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/ | GitHub: https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya)
 - Hiring Availability:
   • Actively seeking Software Engineering Internships & Entry-Level Software Engineer roles.
   • Work Preference: On-site / Remote.
+  • Location: Jaipur, Rajasthan, India (Open to relocation & remote roles worldwide).
   • Languages: Hindi, English.
-- Contact Information:
+- Contact Information & Official Links:
   • Email: indrajitkumar23541@gmail.com
+  • Phone: +91-7061661897
+  • Resume: assets/docs/Indrajit_Kumar_Resume.pdf (ATS-compliant 1-page PDF format)
   • GitHub: https://github.com/indrajitkumar23541-a11y
   • LinkedIn: https://www.linkedin.com/in/indrajit-kumar-221284218
   • LeetCode: https://leetcode.com/u/indrajitkumar23541/
 
 RESPONSE GUIDELINES:
 - Be concise, professional, warm, and recruiter-focused.
+- Multilingual Support: You are fluent in both English and Hindi/Hinglish. If a user asks questions in Hindi or Hinglish (e.g. "Indrajit ke baare me batao", "Indrajit kaun hai?", "Kya projects banaye hain?", "Kaise sampark kare?"), respond naturally and professionally in conversational Hindi/Hinglish or English with complete clarity!
+- If asked for Indrajit's resume or CV, provide a friendly direct link to view and download his verified resume PDF: <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" style="color: var(--coffee-primary); font-weight: 600; text-decoration: underline;">Indrajit_Kumar_Resume.pdf</a>.
 - Highlight Indrajit's builder mindset, problem-solving skills, and ability to build end-to-end working applications.
 - Keep answers under 3-4 sentences or short, easily scannable bullet points.
 - Format responses nicely with HTML tags (<strong>, <em>, <ul>, <li>, <p>).
@@ -230,15 +240,45 @@ RESPONSE GUIDELINES:
 
     // Fallback knowledge base if no API key is configured yet
     const fallbackKnowledgeBase = {
+        intro: `<strong>Indrajit Kumar:</strong> Software Engineer & Full-Stack AI Systems Developer pursuing B.Tech Computer Science (2023–2027) at Jagannath University, Jaipur, Rajasthan, India.
+        <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.55;">
+            <li><strong>Core Domain:</strong> Scalable Full-Stack Web Development, Microservices Backend, and Generative AI (LLMs, RAG).</li>
+            <li><strong>Flagship Projects:</strong> PraGo (Healthcare AI Super App), Indra-MarketMind (Quantitative Financial AI Terminal), VELOCITY X (3D WebGL Engine), Yaadon Ki Duniya.</li>
+            <li><strong>Key Tech:</strong> C++, Python, JavaScript, React, Next.js, Node.js, FastAPI, PostgreSQL, MongoDB, Docker, Groq.</li>
+        </ul>
+        <div style="margin-top: 0.65rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" class="btn btn-sm btn-primary js-view-resume" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+                <i class="fa-regular fa-file-pdf"></i> View Resume
+            </a>
+            <a href="#projects" class="btn btn-sm btn-outline" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+                Explore Projects
+            </a>
+        </div>`,
+        education: `<strong>Education & Academics:</strong>
+        <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.55;">
+            <li><strong>Degree:</strong> Bachelor of Technology (B.Tech) in Computer Science & Engineering (2023 – Expected 2027)</li>
+            <li><strong>University:</strong> Jagannath University, Jaipur, Rajasthan, India</li>
+            <li><strong>Core Coursework:</strong> Data Structures & Algorithms (C++), Operating Systems, DBMS, Computer Networks, OOP, AI & Machine Learning.</li>
+            <li><strong>Certifications:</strong> PCAP: Programming Essentials in Python (Cisco & Python Institute), Cybersecurity (Cisco), SWOC 2026.</li>
+        </ul>`,
+        resume: `<strong>Official Verified Resume:</strong> Indrajit's latest ATS-compliant resume (updated 2026) is available:
+        <div style="margin-top: 0.65rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" class="btn btn-sm btn-primary js-view-resume" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+                <i class="fa-regular fa-file-pdf"></i> View Resume
+            </a>
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" download="Indrajit_Kumar_Resume.pdf" class="btn btn-sm btn-outline" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+                <i class="fa-solid fa-download"></i> Download PDF
+            </a>
+        </div>`,
         specialty: `<strong>Core Specialty:</strong> Software Engineer specializing in <strong>Full-Stack Development (React, Next.js, Node.js, FastAPI)</strong> and <strong>AI Systems Integration (Market Sentiment NLP, Healthcare AI, 3D WebGL Engines)</strong>. B.Tech Computer Science student at Jagannath University, Jaipur, graduating in 2027. Strong focus on backend architecture, database systems, and C++ Data Structures & Algorithms.`,
         ai: `<strong>AI & Systems Depth:</strong> Indrajit builds practical AI and web systems. His stack includes:
         <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.5;">
             <li><strong>Financial Sentiment NLP:</strong> Correlating live financial news sentiment with stock price volatility & trend signals (Indra-MarketMind).</li>
             <li><strong>Healthcare AI Systems:</strong> AI diagnostics, patient telemetry & microservice routing (PraGo Medical App).</li>
             <li><strong>Interactive 3D Engine & AI:</strong> Three.js PBR clearcoats, procedural acoustics & aggressive interceptor AI (VELOCITY-X).</li>
-            <li><strong>Cloud & Local LLMs:</strong> Groq API (Llama 3.3 70B), Ollama, vector search, RAG pipelines, and prompt engineering.</li>
+            <li><strong>Cloud & Local LLMs:</strong> Groq API, Ollama, vector search, RAG pipelines, Gemini API, and prompt engineering.</li>
         </ul>`,
-        availability: `<strong>Hiring Status:</strong> 🟢 <strong>Actively Open for Opportunities!</strong> Indrajit is available for <strong>Software Engineering Internships</strong> and entry-level full-time roles (Remote or On-site).`,
+        availability: `<strong>Hiring Status:</strong> 🟢 <strong>Actively Open for Opportunities!</strong> Indrajit is available for <strong>Software Engineering Internships</strong> and entry-level full-time roles (Remote or On-site in Jaipur/India).`,
         advantages: `<strong>Why Hire Indrajit:</strong>
         <ol style="margin: 0.5rem 0 0 1.25rem; line-height: 1.5;">
             <li><strong>Production Execution:</strong> Delivers complete live products like Indra-MarketMind, VELOCITY-X, PraGo, and Yaadon Ki Duniya.</li>
@@ -254,10 +294,12 @@ RESPONSE GUIDELINES:
         </ol>`,
         contact: `<strong>Get in Touch:</strong>
         • Email: <a href="mailto:indrajitkumar23541@gmail.com" style="color: var(--coffee-primary); text-decoration: underline;">indrajitkumar23541@gmail.com</a>
+        • Phone: <a href="tel:+917061661897" style="color: var(--coffee-primary); text-decoration: underline;">+91-7061661897</a>
+        • Resume: <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" style="color: var(--coffee-primary); text-decoration: underline;">Download Resume PDF</a>
         • GitHub: <a href="https://github.com/indrajitkumar23541-a11y" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">github.com/indrajitkumar23541-a11y</a>
         • LinkedIn: <a href="https://www.linkedin.com/in/indrajit-kumar-221284218" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">linkedin.com/in/indrajit-kumar-221284218</a>
         • LeetCode: <a href="https://leetcode.com/u/indrajitkumar23541/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">leetcode.com/u/indrajitkumar23541</a>
-        • Education: B.Tech Computer Science (2023–2027), Jagannath University, Jaipur.`
+        • Location: Jaipur, Rajasthan, India.`
     };
 
     function escapeHtml(str) {
@@ -586,20 +628,26 @@ RESPONSE GUIDELINES:
         return new Promise((resolve) => {
             setTimeout(() => {
                 let answer = '';
-                if (lower.includes('specialty') || lower.includes('stack') || lower.includes('skills') || lower.includes('technical')) {
+                if (lower.includes('resume') || lower.includes('cv') || lower.includes('biodata') || lower.includes('pdf')) {
+                    answer = fallbackKnowledgeBase.resume;
+                } else if (lower.includes('kon hai') || lower.includes('kaun hai') || lower.includes('who is') || lower.includes('about') || lower.includes('intro') || lower.includes('bare me') || lower.includes('baare me') || lower.includes('batao') || lower.includes('tell me about')) {
+                    answer = fallbackKnowledgeBase.intro;
+                } else if (lower.includes('education') || lower.includes('college') || lower.includes('university') || lower.includes('padhai') || lower.includes('degree') || lower.includes('b.tech') || lower.includes('jagannath')) {
+                    answer = fallbackKnowledgeBase.education;
+                } else if (lower.includes('specialty') || lower.includes('stack') || lower.includes('skills') || lower.includes('technical') || lower.includes('kya aata hai') || lower.includes('languages')) {
                     answer = fallbackKnowledgeBase.specialty;
                 } else if (lower.includes('ai') || lower.includes('llm') || lower.includes('rag') || lower.includes('gemini') || lower.includes('groq')) {
                     answer = fallbackKnowledgeBase.ai;
-                } else if (lower.includes('available') || lower.includes('internship') || lower.includes('job') || lower.includes('hire') || lower.includes('role')) {
+                } else if (lower.includes('available') || lower.includes('internship') || lower.includes('job') || lower.includes('hire') || lower.includes('role') || lower.includes('naukri')) {
                     answer = fallbackKnowledgeBase.availability;
                 } else if (lower.includes('stand out') || lower.includes('fresher') || lower.includes('why') || lower.includes('advantages')) {
                     answer = fallbackKnowledgeBase.advantages;
-                } else if (lower.includes('project') || lower.includes('work') || lower.includes('portfolio') || lower.includes('robolens')) {
+                } else if (lower.includes('project') || lower.includes('work') || lower.includes('portfolio') || lower.includes('prago') || lower.includes('marketmind') || lower.includes('velocity') || lower.includes('kya banaya')) {
                     answer = fallbackKnowledgeBase.projects;
-                } else if (lower.includes('contact') || lower.includes('email') || lower.includes('reach') || lower.includes('phone')) {
+                } else if (lower.includes('contact') || lower.includes('email') || lower.includes('reach') || lower.includes('phone') || lower.includes('number') || lower.includes('sampark') || lower.includes('call')) {
                     answer = fallbackKnowledgeBase.contact;
                 } else {
-                    answer = `Thank you for asking! Indrajit specializes in <strong>Full-Stack Development (React, Next.js, Node.js, FastAPI)</strong> and <strong>AI Integrations (Groq, Llama 3, Gemini, RAG)</strong>. He is pursuing B.Tech CSE (2023–2027) at Jagannath University and is actively open for software engineering internships and roles. Contact him at <a href="mailto:indrajitkumar23541@gmail.com" style="color: var(--coffee-primary); text-decoration: underline;">indrajitkumar23541@gmail.com</a>.`;
+                    answer = `Thank you for asking! Indrajit specializes in <strong>Full-Stack Development (React, Next.js, Node.js, FastAPI)</strong> and <strong>AI Integrations (Groq, Llama 3, Gemini, RAG)</strong>. He is pursuing B.Tech CSE (2023–2027) at Jagannath University and is actively open for software engineering internships and roles. You can <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" style="color: var(--coffee-primary); text-decoration: underline;">view his resume</a> or reach him at <a href="mailto:indrajitkumar23541@gmail.com" style="color: var(--coffee-primary); text-decoration: underline;">indrajitkumar23541@gmail.com</a>.`;
                 }
 
                 resolve(answer);
@@ -850,6 +898,53 @@ RESPONSE GUIDELINES:
             card.addEventListener('mouseenter', () => {
                 card.style.transition = 'transform 0.1s ease-out';
             });
+        });
+    }
+
+    /* -------------------------------------------------------------------------
+       8. INTERACTIVE RESUME PREVIEW MODAL
+       ------------------------------------------------------------------------- */
+    const resumeModal = document.getElementById('resume-modal');
+    const resumeModalClose = document.getElementById('resume-modal-close');
+    const viewResumeTriggers = document.querySelectorAll('.js-view-resume');
+
+    function openResumeModal(e) {
+        if (!resumeModal) return;
+        // On screens wider than 640px, prevent full-page navigation and open sleek modal
+        if (window.innerWidth > 640 && e && e.preventDefault) {
+            e.preventDefault();
+        }
+        resumeModal.removeAttribute('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeResumeModal() {
+        if (!resumeModal) return;
+        resumeModal.setAttribute('hidden', '');
+        document.body.style.overflow = '';
+    }
+
+    if (resumeModal) {
+        viewResumeTriggers.forEach(btn => {
+            btn.addEventListener('click', openResumeModal);
+        });
+
+        if (resumeModalClose) {
+            resumeModalClose.addEventListener('click', closeResumeModal);
+        }
+
+        // Close on clicking backdrop outside container
+        resumeModal.addEventListener('click', (e) => {
+            if (e.target === resumeModal) {
+                closeResumeModal();
+            }
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !resumeModal.hasAttribute('hidden')) {
+                closeResumeModal();
+            }
         });
     }
 
