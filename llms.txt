@@ -17,6 +17,7 @@ Indrajit Kumar is a Software Engineer specializing in Full-Stack Web Development
 - **LinkedIn**: https://www.linkedin.com/in/indrajit-kumar-221284218
 - **LeetCode**: https://leetcode.com/u/indrajitkumar23541/
 - **Wikidata Entity**: https://www.wikidata.org/wiki/Q141880541
+- **Google Developer Profile**: https://g.dev/indrajitkumar
 
 ## Core Technical Skills
 - **Languages**: C, C++ (DSA & System Programming), Python, JavaScript (ES6+), Java, SQL

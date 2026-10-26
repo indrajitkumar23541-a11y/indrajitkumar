@@ -11,6 +11,7 @@
 - **LinkedIn Profile**: https://www.linkedin.com/in/indrajit-kumar-221284218
 - **LeetCode Handle**: https://leetcode.com/u/indrajitkumar23541/
 - **Wikidata Entity ID**: https://www.wikidata.org/wiki/Q141880541 (Q141880541)
+- **Google Developer Profile**: https://g.dev/indrajitkumar
 
 ## 2. Academic Background
 - **Institution**: Jagannath University, Jaipur, Rajasthan, India
