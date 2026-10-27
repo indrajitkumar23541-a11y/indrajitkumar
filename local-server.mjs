@@ -225,16 +225,21 @@ const server = http.createServer(async (req, res) => {
             const contentType = MIME_TYPES[ext] || 'application/octet-stream';
             const etag = `W/"${stats.size.toString(16)}-${Math.floor(stats.mtimeMs).toString(16)}"`;
 
-            // 304 Cache Validation
+            // Always vary cached responses by Accept-Encoding and send ETag
+            res.setHeader('ETag', etag);
+            res.setHeader('Vary', 'Accept-Encoding');
+
+            // 304 Cache Validation with full cache headers preserved
             if (req.headers['if-none-match'] === etag) {
                 res.statusCode = 304;
                 return res.end();
             }
 
-            res.setHeader('ETag', etag);
-            res.setHeader('Vary', 'Accept-Encoding');
-            if (pathname.startsWith('/assets/images/') || pathname.startsWith('/assets/docs/') || pathname.endsWith('.woff2') || pathname.endsWith('.woff')) {
+            // Only immutable standard fonts get 1-year cache; unversioned images and docs use stale-while-revalidate
+            if (pathname.endsWith('.woff2') || pathname.endsWith('.woff')) {
                 res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+            } else if (pathname.startsWith('/assets/images/') || pathname.startsWith('/assets/docs/')) {
+                res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
             } else {
                 res.setHeader('Cache-Control', 'no-cache, must-revalidate');
             }

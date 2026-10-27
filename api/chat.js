@@ -160,6 +160,8 @@ Be concise, professional, warm, and recruiter-focused.`;
         }
 
         const data = await response.json();
+        // Explicitly report the model used by chat completions
+        data.model = data.model || MODEL;
         return res.status(200).json(data);
 
     } catch (error) {

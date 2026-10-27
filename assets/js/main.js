@@ -496,25 +496,28 @@ RESPONSE GUIDELINES:
     function updateApiKeyUi() {
         if (!aiStatusText) return;
         const activeKey = localStorage.getItem('GROQ_API_KEY') || GROQ_CONFIG.apiKey;
-        if (isServerlessBackendAvailable || (activeKey && activeKey.startsWith('gsk_'))) {
+        if (isServerlessBackendAvailable) {
             aiStatusText.textContent = 'IndraIntel AI · Online';
+        } else if (activeKey && activeKey.startsWith('gsk_')) {
+            aiStatusText.textContent = 'IndraIntel AI · Client Key Active';
         } else {
-            aiStatusText.textContent = 'IndraIntel · Offline';
+            aiStatusText.textContent = 'IndraIntel · Offline (Knowledge Base)';
         }
     }
 
     async function checkBackendAvailability() {
         try {
-            // Check if serverless /api/chat is reachable via health-check GET
+            // Check if serverless /api/chat is reachable and healthy via GET
             const res = await fetch('/api/chat', { method: 'GET' });
-            if (res.ok || res.status === 200 || res.status === 405) {
+            if (res.ok && res.status === 200) {
                 isServerlessBackendAvailable = true;
-                updateApiKeyUi();
+            } else {
+                isServerlessBackendAvailable = false;
             }
         } catch {
             isServerlessBackendAvailable = false;
-            updateApiKeyUi();
         }
+        updateApiKeyUi();
     }
 
     if (btnConfigureKey) {
@@ -656,6 +659,8 @@ RESPONSE GUIDELINES:
 
         if (serverlessRes) {
             if (serverlessRes.ok) {
+                isServerlessBackendAvailable = true;
+                updateApiKeyUi();
                 const data = await serverlessRes.json().catch(() => ({}));
                 const botReply = data.choices?.[0]?.message?.content;
                 if (botReply && typeof botReply === 'string' && botReply.trim()) {
@@ -663,6 +668,10 @@ RESPONSE GUIDELINES:
                     return markdownToHtml(botReply);
                 }
             } else {
+                if (serverlessRes.status >= 500 || serverlessRes.status === 404) {
+                    isServerlessBackendAvailable = false;
+                    updateApiKeyUi();
+                }
                 const errData = await serverlessRes.json().catch(() => ({}));
                 const errMsg = typeof errData.error === 'string'
                     ? errData.error
