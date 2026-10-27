@@ -211,10 +211,8 @@ const server = http.createServer(async (req, res) => {
         res.setHeader('Vary', 'Accept-Encoding');
         if (pathname.startsWith('/assets/images/') || pathname.startsWith('/assets/docs/') || pathname.endsWith('.woff2') || pathname.endsWith('.woff')) {
             res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-        } else if (pathname.startsWith('/assets/')) {
-            res.setHeader('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800');
         } else {
-            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+            res.setHeader('Cache-Control', 'no-cache, must-revalidate');
         }
 
         res.statusCode = 200;

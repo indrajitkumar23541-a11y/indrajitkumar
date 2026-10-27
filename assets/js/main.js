@@ -58,25 +58,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: true });
     }
 
-    // Universal Ultra-Smooth Anchor Navigation
+    // Universal Ultra-Smooth Anchor Navigation (with A11y Focus & Modified-Click Handling)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
+            // Leave modified clicks (Cmd/Ctrl/Shift/Alt/Middle click) to native browser behavior
+            if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+            }
+
             const href = this.getAttribute('href');
             if (!href || href === '#' || href === '#!') return;
             const targetEl = document.querySelector(href);
             if (targetEl) {
                 e.preventDefault();
+
+                const setAccessibleFocus = () => {
+                    if (!targetEl.hasAttribute('tabindex')) {
+                        targetEl.setAttribute('tabindex', '-1');
+                    }
+                    targetEl.focus({ preventScroll: true });
+                };
+
                 if (lenis) {
                     lenis.scrollTo(targetEl, {
                         offset: -75,
                         duration: 1.2,
-                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                        onComplete: setAccessibleFocus
                     });
                 } else {
                     const top = targetEl.getBoundingClientRect().top + window.scrollY - 75;
                     window.scrollTo({ top, behavior: 'smooth' });
+                    setAccessibleFocus();
                 }
-                if (history.pushState) {
+
+                // Avoid pushing duplicate fragment to history stack
+                if (history.pushState && window.location.hash !== href) {
                     history.pushState(null, null, href);
                 }
             }

@@ -2198,6 +2198,7 @@ a {
     .ai-terminal-console {
         height: 520px;
         max-height: 520px;
+        min-height: 0;
     }
     .ai-terminal-body {
         flex: 1 1 0;
@@ -2206,6 +2207,7 @@ a {
     }
     .ai-dossier-panel {
         height: auto;
+        min-height: 0;
         max-height: none;
     }
 }
@@ -2218,7 +2220,7 @@ a {
     .matrix-grid {
         grid-template-columns: 1fr;
     }
-    .dossier-actions-wrap {
+    .dossier-sub-actions {
         grid-template-columns: 1fr;
     }
 }
@@ -3095,7 +3097,7 @@ a {
     .coursework-chips-grid,
     .cert-matrix-grid,
     .matrix-grid,
-    .dossier-actions-wrap,
+    .dossier-sub-actions,
     .contact-matrix-grid,
     .form-row-twin {
         grid-template-columns: 1fr;
