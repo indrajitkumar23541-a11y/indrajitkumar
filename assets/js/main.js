@@ -6,26 +6,86 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* -------------------------------------------------------------------------
-       1. NAVBAR SCROLL & MOBILE TOGGLE
+       0. WORLD-CLASS SMOOTH SCROLL ENGINE (Lenis High-Precision Interpolation)
        ------------------------------------------------------------------------- */
     const navbar = document.getElementById('navbar');
     const mobileToggle = document.getElementById('mobile-toggle');
     const navLinks = document.getElementById('nav-links');
 
-    let isScrolling = false;
-    window.addEventListener('scroll', () => {
-        if (!isScrolling) {
-            window.requestAnimationFrame(() => {
-                if (window.scrollY > 20) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-                isScrolling = false;
-            });
-            isScrolling = true;
+    let lenis = null;
+    if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            wheelMultiplier: 0.92,
+            touchMultiplier: 1.5,
+            infinite: false
+        });
+
+        // High-precision RAF loop
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
-    }, { passive: true });
+        requestAnimationFrame(raf);
+
+        // Zero-overhead scroll updates directly from Lenis
+        lenis.on('scroll', ({ scroll }) => {
+            if (scroll > 25) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    } else {
+        // Fallback for native window scroll
+        let isScrolling = false;
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    if (window.scrollY > 25) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true });
+    }
+
+    // Universal Ultra-Smooth Anchor Navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (!href || href === '#' || href === '#!') return;
+            const targetEl = document.querySelector(href);
+            if (targetEl) {
+                e.preventDefault();
+                if (lenis) {
+                    lenis.scrollTo(targetEl, {
+                        offset: -75,
+                        duration: 1.2,
+                        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+                    });
+                } else {
+                    const top = targetEl.getBoundingClientRect().top + window.scrollY - 75;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+                if (history.pushState) {
+                    history.pushState(null, null, href);
+                }
+            }
+        });
+    });
+
+    /* -------------------------------------------------------------------------
+       1. MOBILE NAVIGATION TOGGLE
+       ------------------------------------------------------------------------- */
 
     if (mobileToggle && navLinks) {
         mobileToggle.addEventListener('click', () => {

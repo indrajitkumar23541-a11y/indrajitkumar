@@ -176,10 +176,10 @@
     <!-- Primary Stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
 
-    <!-- Google Fonts (Non-render-blocking with swap fallback) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"></noscript>
+    <!-- Google Fonts: Outfit (Display & Headings), Plus Jakarta Sans (Editorial Body), Inter, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- FontAwesome (Asynchronously loaded to eliminate blank-screen delay) -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -346,22 +346,22 @@
                             <div class="bento-badge-strip">
                                 <span class="status-indicator-pill">
                                     <span class="status-dot-pulse"></span>
-                                    Open for SDE Roles & Internships
+                                    Open for SDE Roles &amp; Internships
                                 </span>
-                                <span class="bento-mono-tag">Jaipur, India · Remote / On-site</span>
+                                <span class="bento-mono-tag"><i class="fa-solid fa-location-dot"></i> Jaipur, India · Remote / On-site</span>
                             </div>
 
-                            <h3 class="bio-spotlight-title">Software Engineer | Full-Stack Development & AI Integration</h3>
+                            <h3 class="bio-spotlight-title">Software Engineer <span class="title-accent">·</span> Full-Stack &amp; AI Systems</h3>
 
                             <p class="bio-narrative-text">
-                                B.Tech Computer Science student at Jagannath University, Jaipur, graduating in 2027. Focused on building end-to-end software applications using <strong>React, Next.js, Node.js, and FastAPI</strong>, with experience integrating <strong>Generative AI, LLMs, and Retrieval-Augmented Generation (RAG)</strong> into practical projects. Strong interest in <strong>backend architecture, database systems, and C++ Data Structures & Algorithms</strong>, with an emphasis on clean code, scalable design, and solving real-world problems.
+                                B.Tech Computer Science student at <strong>Jagannath University, Jaipur</strong> (graduating 2027). Dedicated to building end-to-end software applications with <strong>React, Next.js, Node.js, and FastAPI</strong>, integrating Generative AI &amp; RAG into production-grade systems. Driven by robust backend architecture, scalable database design, and disciplined C++ algorithmic problem solving.
                             </p>
 
                             <!-- Tech DNA Micro Badges -->
                             <div class="tech-dna-row">
                                 <div class="dna-pill">
                                     <i class="fa-solid fa-layer-group"></i>
-                                    <span>Full-Stack & APIs</span>
+                                    <span>Full-Stack &amp; APIs</span>
                                 </div>
                                 <div class="dna-pill">
                                     <i class="fa-solid fa-brain"></i>
@@ -373,7 +373,7 @@
                                 </div>
                                 <div class="dna-pill">
                                     <i class="fa-solid fa-database"></i>
-                                    <span>PostgreSQL & MongoDB</span>
+                                    <span>PostgreSQL &amp; MongoDB</span>
                                 </div>
                             </div>
                         </div>
@@ -388,7 +388,7 @@
                                 <i class="fa-solid fa-arrow-up-right-from-square"></i>
                                 <span>Preview</span>
                             </a>
-                            <a href="#contact" class="btn btn-sm btn-secondary">
+                            <a href="#contact" class="btn btn-sm btn-link-subtle" title="Get in touch with Indrajit">
                                 <span>Let's Talk</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
@@ -400,7 +400,7 @@
                         <div>
                             <!-- Executive Snapshot Header & Grid -->
                             <div class="right-card-header">
-                                <i class="fa-solid fa-id-card"></i>
+                                <div class="header-icon-box"><i class="fa-solid fa-id-card"></i></div>
                                 <h4>Executive Snapshot</h4>
                             </div>
                             <div class="snapshot-compact-grid">
@@ -426,21 +426,21 @@
 
                             <!-- Engineering Philosophy -->
                             <div class="right-card-header">
-                                <i class="fa-solid fa-compass-drafting"></i>
+                                <div class="header-icon-box"><i class="fa-solid fa-compass-drafting"></i></div>
                                 <h4>Engineering Philosophy</h4>
                             </div>
                             <div class="principles-compact-row">
                                 <div class="principle-item">
-                                    <i class="fa-solid fa-circle-check"></i>
+                                    <div class="principle-icon-box"><i class="fa-solid fa-circle-check"></i></div>
                                     <div>
-                                        <strong>Clean & Modular Architecture</strong>
+                                        <strong>Clean &amp; Modular Architecture</strong>
                                         <span>Maintainable, type-safe codebases with clear separation of concerns.</span>
                                     </div>
                                 </div>
                                 <div class="principle-item">
-                                    <i class="fa-solid fa-bolt"></i>
+                                    <div class="principle-icon-box"><i class="fa-solid fa-bolt"></i></div>
                                     <div>
-                                        <strong>Low Latency & High Scalability</strong>
+                                        <strong>Low Latency &amp; High Scalability</strong>
                                         <span>High-throughput APIs, intelligent caching, and responsive workflows.</span>
                                     </div>
                                 </div>
@@ -453,7 +453,7 @@
                                 <i class="fa-solid fa-layer-group"></i>
                                 <span>Technical Stack</span>
                             </a>
-                            <a href="#projects" class="btn btn-sm btn-secondary">
+                            <a href="#projects" class="btn btn-sm btn-outline">
                                 <span>Explore Projects</span>
                                 <i class="fa-solid fa-arrow-down"></i>
                             </a>
@@ -1152,18 +1152,20 @@
 
                         <!-- Direct Recruiter Actions -->
                         <div class="dossier-actions-wrap">
-                            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary dossier-action-btn js-view-resume" title="Open Indrajit's Resume in a new tab">
-                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary dossier-action-btn dossier-btn-featured js-view-resume" title="Open Indrajit's Resume in a new tab">
+                                <i class="fa-solid fa-file-arrow-down"></i>
                                 <span>Official Resume PDF</span>
                             </a>
-                            <a href="#contact" class="btn btn-sm btn-outline dossier-action-btn">
-                                <i class="fa-solid fa-paper-plane"></i>
-                                <span>Connect with Indrajit</span>
-                            </a>
-                            <a href="mailto:indrajitkumar23541@gmail.com" class="btn btn-sm btn-outline dossier-action-btn">
-                                <i class="fa-solid fa-envelope"></i>
-                                <span>Direct Email</span>
-                            </a>
+                            <div class="dossier-sub-actions">
+                                <a href="#contact" class="btn btn-sm btn-outline dossier-action-btn">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Connect with Indrajit</span>
+                                </a>
+                                <a href="mailto:indrajitkumar23541@gmail.com" class="btn btn-sm btn-outline dossier-action-btn">
+                                    <i class="fa-regular fa-envelope"></i>
+                                    <span>Direct Email</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1422,7 +1424,8 @@
         <span id="toast-message">Email address copied to clipboard!</span>
     </div>
 
-    <!-- Scripts (deferred for non-blocking browser rendering) -->
+    <!-- Cinematic Smooth Scroll Engine (Lenis - Local High Performance Bundle) & Interactions -->
+    <script src="assets/js/lenis.min.js"></script>
     <script src="assets/js/main.js" defer></script>
 </body>
 </html>
