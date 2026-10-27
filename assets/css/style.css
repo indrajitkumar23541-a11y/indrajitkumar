@@ -3158,17 +3158,99 @@ a {
     }
 
     .bio-card-actions,
-    .edu-card-actions {
+    .right-card-bottom-bar,
+    .edu-card-actions,
+    .edu-card-bottom-bar {
         flex-direction: column;
         width: 100%;
         gap: 0.55rem;
     }
 
     .bio-card-actions .btn,
-    .edu-card-actions .btn {
+    .right-card-bottom-bar .btn,
+    .edu-card-actions .btn,
+    .edu-card-bottom-bar .btn {
         width: 100%;
         justify-content: center;
         text-align: center;
+    }
+
+    /* Education Details Mobile Polish */
+    .edu-lab-item {
+        gap: 0.55rem;
+    }
+
+    .edu-lab-item strong {
+        font-size: 0.81rem;
+    }
+
+    .edu-lab-item span {
+        font-size: 0.74rem;
+        line-height: 1.4;
+    }
+
+    .edu-cert-item {
+        padding: 0.55rem 0.75rem;
+        gap: 0.65rem;
+    }
+
+    .cert-icon-wrap {
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+
+    .cert-details strong {
+        font-size: 0.79rem;
+    }
+
+    .cert-details span {
+        font-size: 0.71rem;
+        line-height: 1.35;
+    }
+
+    /* Contact Details Mobile Polish */
+    .contact-card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+        padding-top: 0.85rem;
+        width: 100%;
+    }
+
+    .contact-loc-tag {
+        font-size: 0.74rem;
+        line-height: 1.45;
+    }
+
+    .contact-phone-tag,
+    .contact-hiring-badge {
+        align-self: flex-start;
+    }
+
+    .form-trust-box {
+        margin-top: 0.75rem;
+        padding: 0.75rem 0.85rem;
+        gap: 0.55rem;
+    }
+
+    .trust-pill-item {
+        gap: 0.65rem;
+    }
+
+    .trust-icon-badge {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+    }
+
+    .trust-heading {
+        font-size: 0.79rem;
+    }
+
+    .trust-subtext {
+        font-size: 0.71rem;
+        line-height: 1.35;
     }
 
     .core-values-grid,
@@ -3368,6 +3450,98 @@ a {
     .btn-copy-mini, 
     .btn-visit-mini {
         margin-left: 0;
+    }
+
+    .edu-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+
+    .coursework-chips-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.38rem;
+    }
+
+    .course-chip {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.74rem;
+    }
+
+    .project-footer {
+        flex-direction: column;
+        gap: 0.55rem;
+    }
+
+    .project-footer .btn {
+        width: 100%;
+    }
+
+    .contact-card-heading {
+        font-size: 1.1rem;
+    }
+
+    .contact-loc-tag {
+        font-size: 0.73rem;
+        line-height: 1.4;
+    }
+}
+
+/* Extra-Small Phones (380px and down) */
+@media (max-width: 380px) {
+    .container {
+        padding: 0 0.85rem;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.18;
+    }
+
+    .hero-subtitle {
+        font-size: 0.88rem;
+    }
+
+    .about-bento-card,
+    .edu-bento-card,
+    .ai-dossier-panel,
+    .contact-bento-card {
+        padding: 1.1rem 0.85rem;
+    }
+
+    .edu-institution-wrap {
+        gap: 0.65rem;
+    }
+
+    .edu-icon-circle {
+        width: 38px;
+        height: 38px;
+        font-size: 0.95rem;
+    }
+
+    .institution-title-wrap h3 {
+        font-size: 1.02rem;
+    }
+
+    .edu-degree-badge {
+        font-size: 0.74rem;
+        line-height: 1.35;
+    }
+
+    .form-title-icon-badge {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .trust-pill-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+    }
+
+    .trust-icon-badge {
+        display: none;
     }
 }
 
