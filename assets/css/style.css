@@ -1742,6 +1742,53 @@ a {
     box-shadow: var(--shadow-sm);
 }
 
+.bot-bubble p {
+    margin: 0.35rem 0;
+}
+.bot-bubble p:first-child {
+    margin-top: 0;
+}
+.bot-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.bot-bubble ul,
+.bot-bubble ol {
+    margin: 0.4rem 0 0.4rem 1.25rem;
+    padding: 0;
+    line-height: 1.55;
+}
+
+.bot-bubble li {
+    margin-bottom: 0.25rem;
+}
+
+.bot-bubble a {
+    color: var(--coffee-primary);
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.bot-bubble a:hover {
+    color: var(--coffee-hover);
+}
+
+.bot-bubble code {
+    background: rgba(122, 75, 53, 0.08);
+    color: var(--coffee-primary);
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-family: var(--font-mono);
+}
+
+.fallback-action-group {
+    margin-top: 0.65rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
 .user-bubble {
     align-self: flex-end;
     background: linear-gradient(135deg, var(--coffee-primary) 0%, #5E3624 100%);

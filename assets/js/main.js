@@ -318,38 +318,38 @@ RESPONSE GUIDELINES:
     // Fallback knowledge base if no API key is configured yet
     const fallbackKnowledgeBase = {
         intro: `<strong>Indrajit Kumar:</strong> Software Engineer & Full-Stack AI Systems Developer pursuing B.Tech Computer Science (2023–2027) at Jagannath University, Jaipur, Rajasthan, India.
-        <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.55;">
+        <ul>
             <li><strong>Core Domain:</strong> Scalable Full-Stack Web Development, Microservices Backend, and Generative AI (LLMs, RAG).</li>
             <li><strong>Flagship Projects:</strong> PraGo (Healthcare AI Super App), Indra-MarketMind (Quantitative Financial AI Terminal), VELOCITY X (3D WebGL Engine), Yaadon Ki Duniya.</li>
             <li><strong>Key Tech:</strong> C++, Python, JavaScript, React, Next.js, Node.js, FastAPI, PostgreSQL, MongoDB, Docker, Groq.</li>
         </ul>
-        <div style="margin-top: 0.65rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" class="btn btn-sm btn-primary js-view-resume" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+        <div class="fallback-action-group">
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary js-view-resume">
                 <i class="fa-regular fa-file-pdf"></i> View Resume
             </a>
-            <a href="#projects" class="btn btn-sm btn-outline" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+            <a href="#projects" class="btn btn-sm btn-outline">
                 Explore Projects
             </a>
         </div>`,
         education: `<strong>Education & Academics:</strong>
-        <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.55;">
+        <ul>
             <li><strong>Degree:</strong> Bachelor of Technology (B.Tech) in Computer Science & Engineering (2023 – Expected 2027)</li>
             <li><strong>University:</strong> Jagannath University, Jaipur, Rajasthan, India</li>
             <li><strong>Core Coursework:</strong> Data Structures & Algorithms (C++), Operating Systems, DBMS, Computer Networks, OOP, AI & Machine Learning.</li>
             <li><strong>Certifications:</strong> PCAP: Programming Essentials in Python (Cisco & Python Institute), Cybersecurity (Cisco), SWOC 2026.</li>
         </ul>`,
         resume: `<strong>Official Verified Resume:</strong> Indrajit's latest ATS-compliant resume (updated 2026) is available:
-        <div style="margin-top: 0.65rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" class="btn btn-sm btn-primary js-view-resume" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+        <div class="fallback-action-group">
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary js-view-resume">
                 <i class="fa-regular fa-file-pdf"></i> View Resume
             </a>
-            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" download="Indrajit_Kumar_Resume.pdf" class="btn btn-sm btn-outline" style="display:inline-flex;align-items:center;gap:6px;padding:0.4rem 0.85rem;font-size:0.8rem;border-radius:6px;text-decoration:none;">
+            <a href="assets/docs/Indrajit_Kumar_Resume.pdf" download="Indrajit_Kumar_Resume.pdf" class="btn btn-sm btn-outline">
                 <i class="fa-solid fa-download"></i> Download PDF
             </a>
         </div>`,
         specialty: `<strong>Core Specialty:</strong> Software Engineer specializing in <strong>Full-Stack Development (React, Next.js, Node.js, FastAPI)</strong> and <strong>AI Systems Integration (Market Sentiment NLP, Healthcare AI, 3D WebGL Engines)</strong>. B.Tech Computer Science student at Jagannath University, Jaipur, graduating in 2027. Strong focus on backend architecture, database systems, and C++ Data Structures & Algorithms.`,
         ai: `<strong>AI & Systems Depth:</strong> Indrajit builds practical AI and web systems. His stack includes:
-        <ul style="margin: 0.5rem 0 0 1.25rem; line-height: 1.5;">
+        <ul>
             <li><strong>Financial Sentiment NLP:</strong> Correlating live financial news sentiment with stock price volatility & trend signals (Indra-MarketMind).</li>
             <li><strong>Healthcare AI Systems:</strong> AI diagnostics, patient telemetry & microservice routing (PraGo Medical App).</li>
             <li><strong>Interactive 3D Engine & AI:</strong> Three.js PBR clearcoats, procedural acoustics & aggressive interceptor AI (VELOCITY-X).</li>
@@ -357,25 +357,25 @@ RESPONSE GUIDELINES:
         </ul>`,
         availability: `<strong>Hiring Status:</strong> 🟢 <strong>Actively Open for Opportunities!</strong> Indrajit is available for <strong>Software Engineering Internships</strong> and entry-level full-time roles (Remote or On-site in Jaipur/India).`,
         advantages: `<strong>Why Hire Indrajit:</strong>
-        <ol style="margin: 0.5rem 0 0 1.25rem; line-height: 1.5;">
+        <ol>
             <li><strong>Production Execution:</strong> Delivers complete live products like Indra-MarketMind, VELOCITY-X, PraGo, and Yaadon Ki Duniya.</li>
             <li><strong>C++ DSA Foundations:</strong> Strong algorithmic problem-solving and memory/complexity analysis.</li>
             <li><strong>Full-Stack + AI Architecture:</strong> Skilled in React/Next.js, Node.js, microservices, 3D WebGL, and modern AI integrations.</li>
         </ol>`,
         projects: `<strong>Indrajit's Top Featured Projects:</strong>
-        <ol style="margin: 0.5rem 0 0 1.25rem; line-height: 1.6;">
-            <li><strong><a href="https://indra-marketmind.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">Indra-MarketMind</a>:</strong> AI-Powered Market Sentiment Intelligence Platform. (<a href="https://github.com/indrajitkumar23541-a11y/Indra-MarketMind" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
-            <li><strong><a href="https://indrajitkumar23541-a11y.github.io/VELOCITY-X/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">VELOCITY-X</a>:</strong> Next-gen 3D WebGL highway pursuit engine with Three.js PBR clearcoats & 60-120 FPS PWA. (<a href="https://github.com/indrajitkumar23541-a11y/VELOCITY-X" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
-            <li><strong><a href="https://prago-medical.vercel.app/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">PraGo Medical App</a>:</strong> Enterprise AI Healthcare Ecosystem with Patient App, Business Portal & Admin Platform. (<a href="https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
-            <li><strong><a href="https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">Yaadon Ki Duniya</a>:</strong> Nostalgic web experience bringing old Indian memories to life through music and ambient soundscapes. (<a href="https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+        <ol>
+            <li><strong><a href="https://indra-marketmind.vercel.app/" target="_blank" rel="noopener noreferrer">Indra-MarketMind</a>:</strong> AI-Powered Market Sentiment Intelligence Platform. (<a href="https://github.com/indrajitkumar23541-a11y/Indra-MarketMind" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+            <li><strong><a href="https://indrajitkumar23541-a11y.github.io/VELOCITY-X/" target="_blank" rel="noopener noreferrer">VELOCITY-X</a>:</strong> Next-gen 3D WebGL highway pursuit engine with Three.js PBR clearcoats & 60-120 FPS PWA. (<a href="https://github.com/indrajitkumar23541-a11y/VELOCITY-X" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+            <li><strong><a href="https://prago-medical.vercel.app/" target="_blank" rel="noopener noreferrer">PraGo Medical App</a>:</strong> Enterprise AI Healthcare Ecosystem with Patient App, Business Portal & Admin Platform. (<a href="https://github.com/indrajitkumar23541-a11y/PraGo-Medical-App" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+            <li><strong><a href="https://indrajitkumar23541-a11y.github.io/Yaadon_Ki_Duniya/" target="_blank" rel="noopener noreferrer">Yaadon Ki Duniya</a>:</strong> Nostalgic web experience bringing old Indian memories to life through music and ambient soundscapes. (<a href="https://github.com/indrajitkumar23541-a11y/Yaadon_Ki_Duniya" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
         </ol>`,
         contact: `<strong>Get in Touch:</strong>
-        • Email: <a href="mailto:indrajitkumar23541@gmail.com" style="color: var(--coffee-primary); text-decoration: underline;">indrajitkumar23541@gmail.com</a>
-        • Phone: <a href="tel:+917061661897" style="color: var(--coffee-primary); text-decoration: underline;">+91-7061661897</a>
-        • Resume: <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" style="color: var(--coffee-primary); text-decoration: underline;">Download Resume PDF</a>
-        • GitHub: <a href="https://github.com/indrajitkumar23541-a11y" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">github.com/indrajitkumar23541-a11y</a>
-        • LinkedIn: <a href="https://www.linkedin.com/in/indrajit-kumar-221284218" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">linkedin.com/in/indrajit-kumar-221284218</a>
-        • LeetCode: <a href="https://leetcode.com/u/indrajitkumar23541/" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">leetcode.com/u/indrajitkumar23541</a>
+        • Email: <a href="mailto:indrajitkumar23541@gmail.com">indrajitkumar23541@gmail.com</a>
+        • Phone: <a href="tel:+917061661897">+91-7061661897</a>
+        • Resume: <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank">Download Resume PDF</a>
+        • GitHub: <a href="https://github.com/indrajitkumar23541-a11y" target="_blank" rel="noopener noreferrer">github.com/indrajitkumar23541-a11y</a>
+        • LinkedIn: <a href="https://www.linkedin.com/in/indrajit-kumar-221284218" target="_blank" rel="noopener noreferrer">linkedin.com/in/indrajit-kumar-221284218</a>
+        • LeetCode: <a href="https://leetcode.com/u/indrajitkumar23541/" target="_blank" rel="noopener noreferrer">leetcode.com/u/indrajitkumar23541</a>
         • Location: Jaipur, Rajasthan, India.`
     };
 
@@ -393,17 +393,18 @@ RESPONSE GUIDELINES:
         if (!html) return '';
         const template = document.createElement('template');
         template.innerHTML = html;
-        const allowedTags = new Set(['STRONG', 'EM', 'B', 'I', 'CODE', 'PRE', 'UL', 'OL', 'LI', 'P', 'BR', 'A', 'DIV', 'SPAN', 'IMG']);
+        // Strictly allow semantic text tags; block remote images (no IMG) and block inline styles (restrict CSS)
+        const allowedTags = new Set(['STRONG', 'EM', 'B', 'I', 'CODE', 'PRE', 'UL', 'OL', 'LI', 'P', 'BR', 'A', 'DIV', 'SPAN']);
         const allowedAttrs = {
-            'A': ['href', 'target', 'rel', 'style', 'class'],
-            'UL': ['style', 'class'],
-            'OL': ['style', 'class'],
-            'LI': ['style', 'class'],
-            'P': ['style', 'class'],
-            'SPAN': ['style', 'class'],
-            'DIV': ['style', 'class'],
-            'CODE': ['style', 'class'],
-            'IMG': ['src', 'alt', 'class']
+            'A': ['href', 'target', 'rel', 'class'],
+            'UL': ['class'],
+            'OL': ['class'],
+            'LI': ['class'],
+            'P': ['class'],
+            'SPAN': ['class'],
+            'DIV': ['class'],
+            'CODE': ['class'],
+            'PRE': ['class']
         };
 
         function cleanNode(node) {
@@ -422,7 +423,7 @@ RESPONSE GUIDELINES:
                     const allowedForTag = allowedAttrs[tagName] || [];
                     for (const attr of attrs) {
                         const attrName = attr.name.toLowerCase();
-                        if (!allowedForTag.includes(attrName) || attrName.startsWith('on')) {
+                        if (!allowedForTag.includes(attrName) || attrName.startsWith('on') || attrName === 'style') {
                             child.removeAttribute(attr.name);
                         }
                     }
@@ -432,6 +433,9 @@ RESPONSE GUIDELINES:
                         const href = child.getAttribute('href').trim().toLowerCase();
                         if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('#')) {
                             child.removeAttribute('href');
+                        } else if (href.startsWith('http://') || href.startsWith('https://')) {
+                            child.setAttribute('target', '_blank');
+                            child.setAttribute('rel', 'noopener noreferrer');
                         }
                     }
 
@@ -548,38 +552,37 @@ RESPONSE GUIDELINES:
 
     function markdownToHtml(text) {
         if (!text) return '';
-        // If text already has trusted internal HTML paragraphs/lists, sanitize and return
-        if (text.includes('<ul') || text.includes('<ol') || text.includes('<div') || text.includes('<p>')) {
-            return sanitizeHtml(text);
-        }
+
+        // 1. Block remote markdown images: convert ![alt](url) to safe descriptive text
+        let sanitizedText = text.replace(/!\[([^\]]*)\]\([^\)]+\)/g, '[Image: $1]');
 
         function formatInline(str) {
             if (!str) return '';
             const codeMap = [];
-            // 1. Extract and escape code blocks
+            // Extract and preserve inline code blocks
             let s = str.replace(/`([^`]+)`/g, (_, code) => {
                 codeMap.push(`<code>${escapeHtml(code)}</code>`);
                 return `@@CODE_${codeMap.length - 1}@@`;
             });
 
-            // 2. Escape raw HTML entities in the remaining text
+            // Escape all raw HTML entities so unescaped model output can never reach innerHTML
             s = escapeHtml(s);
 
-            // 3. Links [text](url) - strictly validate http/https protocol
+            // Links [text](url) - strictly allow only http:// and https:// protocols
             s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, linkText, url) => {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer" style="color: var(--coffee-primary); text-decoration: underline;">${linkText}</a>`;
+                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
             });
 
-            // 4. Bold **text** or __text__
+            // Bold **text** or __text__
             s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
             s = s.replace(/__([^_]+)__/g, '<strong>$1</strong>');
 
-            // 5. Italic *text*
+            // Italic *text*
             s = s.replace(/(?:^|\s)\*([^*\s][^*]*[^*\s]|[^*\s])\*(?=\s|$|[.,!?;:])/g, (match, p1) => {
                 return match.replace(`*${p1}*`, `<em>${p1}</em>`);
             });
 
-            // 6. Restore escaped code spans
+            // Restore escaped code spans
             codeMap.forEach((c, idx) => {
                 s = s.replace(`@@CODE_${idx}@@`, c);
             });
@@ -587,7 +590,7 @@ RESPONSE GUIDELINES:
             return s;
         }
 
-        const lines = text.split('\n');
+        const lines = sanitizedText.split('\n');
         let inList = false;
         const outputLines = [];
 
@@ -608,7 +611,7 @@ RESPONSE GUIDELINES:
             if (isBullet) {
                 if (!inList) {
                     inList = true;
-                    outputLines.push('<ul style="margin: 0.4rem 0 0.4rem 1.25rem; line-height: 1.55;">');
+                    outputLines.push('<ul>');
                 }
                 const bulletContent = trimmed.replace(/^[\*\-]\s+/, '').replace(/^\d+[\.\)]\s+/, '');
                 outputLines.push(`<li>${formatInline(bulletContent)}</li>`);
@@ -617,7 +620,7 @@ RESPONSE GUIDELINES:
                     inList = false;
                     outputLines.push('</ul>');
                 }
-                outputLines.push(`<p style="margin: 0.35rem 0;">${formatInline(trimmed)}</p>`);
+                outputLines.push(`<p>${formatInline(trimmed)}</p>`);
             }
         }
 
@@ -648,7 +651,6 @@ RESPONSE GUIDELINES:
                 body: JSON.stringify({ messages: boundedHistory })
             });
         } catch {
-            // Network failure or static hosting without serverless functions -> proceed to fallback
             serverlessRes = null;
         }
 
@@ -656,16 +658,31 @@ RESPONSE GUIDELINES:
             if (serverlessRes.ok) {
                 const data = await serverlessRes.json().catch(() => ({}));
                 const botReply = data.choices?.[0]?.message?.content;
-                if (botReply) {
+                if (botReply && typeof botReply === 'string' && botReply.trim()) {
                     conversationHistory.push({ role: 'assistant', content: botReply });
                     return markdownToHtml(botReply);
                 }
-            } else if (serverlessRes.status !== 404 && serverlessRes.status !== 405 && serverlessRes.status !== 501) {
-                // The proxy endpoint exists but returned an explicit backend error (e.g. 400 Bad Request, 429 Rate Limit, 500 Server Error)
+            } else {
                 const errData = await serverlessRes.json().catch(() => ({}));
-                throw new Error(errData.error || `Server chat proxy returned status ${serverlessRes.status}`);
+                const errMsg = typeof errData.error === 'string'
+                    ? errData.error
+                    : (errData.error?.message || errData.message || '');
+
+                // Explicit rate limits or bad client payloads should throw informative messages
+                if (serverlessRes.status === 429) {
+                    throw new Error(errMsg || 'Groq API rate limit reached. Please try again shortly.');
+                }
+                if (serverlessRes.status === 400) {
+                    throw new Error(errMsg || 'Bad request to AI chat service.');
+                }
+
+                // If proxy returned 500 (e.g. unconfigured environment key on host), check for client key before falling back
+                const clientKey = localStorage.getItem('GROQ_API_KEY') || GROQ_CONFIG.apiKey;
+                if (!clientKey) {
+                    console.warn(`Server proxy status ${serverlessRes.status}. Using verified offline knowledge base.`);
+                    return fallbackQueryHandler(userQuery);
+                }
             }
-            // If status is 404, 405, or 501, serverless proxy is not supported on this static environment; continue to fallback below
         }
 
         // 2. Client-side key fallback (for local development or custom override)

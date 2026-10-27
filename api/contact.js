@@ -5,10 +5,15 @@
  */
 
 export default async function handler(req, res) {
-    // Set CORS headers for all responses
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // Helper to send CORS headers on every response
+    const setCorsHeaders = () => {
+        res.setHeader('Access-Control-Allow-Origin', req.headers.origin || '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+        res.setHeader('Vary', 'Origin');
+    };
+
+    setCorsHeaders();
 
     // Handle CORS preflight
     if (req.method === 'OPTIONS') {
@@ -71,23 +76,28 @@ export default async function handler(req, res) {
 
         const data = await response.json().catch(() => ({}));
 
-        // Verify that FormSubmit actually accepted the message (response must be ok AND not rejected by FormSubmit)
-        const isRejected = !response.ok || data.success === 'false' || data.success === false;
-        const isSuccess = !isRejected && (
+        // Strict verification: Do not treat every 2xx response as success, and never treat failure messages as success
+        const msgStr = typeof data.message === 'string' ? data.message.toLowerCase() : '';
+        const hasNegativeSignal = !response.ok ||
+            data.success === 'false' ||
+            data.success === false ||
+            Boolean(data.error) ||
+            /fail|error|unable|reject|invalid|blocked|spam/i.test(msgStr);
+
+        const hasPositiveSignal = (
             data.success === 'true' ||
             data.success === true ||
-            (typeof data.message === 'string' && (
-                data.message.includes('successfully') ||
-                data.message.includes('Activate') ||
-                data.message.includes('Check your email')
-            ))
+            (msgStr.includes('successfully') && !hasNegativeSignal) ||
+            (msgStr.includes('check your email') && !hasNegativeSignal)
         );
 
+        const isSuccess = response.ok && !hasNegativeSignal && hasPositiveSignal;
+
         if (!isSuccess) {
-            console.error('FormSubmit gateway rejected:', data);
+            console.error('FormSubmit gateway rejected submission:', { status: response.status, data });
             return res.status(400).json({
                 success: false,
-                message: data.message || 'FormSubmit gateway rejected the message.',
+                message: (typeof data.message === 'string' && data.message) ? data.message : 'Message transmission failed at email gateway. Please try again or email directly.',
                 details: data
             });
         }

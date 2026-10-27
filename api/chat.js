@@ -87,18 +87,46 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'No valid messages with string role and content provided.' });
         }
 
-        // Bounded context window: separate system prompt from conversation turns safely
-        const systemMessage = validMessages.find(m => m.role === 'system');
-        const conversationTurns = validMessages.filter(m => m.role !== 'system');
+        const DEFAULT_SYSTEM_PROMPT = `You are the personal AI Assistant for Indrajit Kumar, integrated into his developer portfolio.
+Your role is to answer questions from recruiters, hiring managers, and engineers about Indrajit's technical skills, projects, background, and hiring availability.
 
-        // Construct bounded message list: system prompt first (if present), followed by latest 12 conversation turns
-        const boundedMessages = systemMessage 
-            ? [systemMessage, ...conversationTurns.slice(-12)]
-            : conversationTurns.slice(-12);
+VERIFIED DOSSIER ON INDRAJIT KUMAR:
+- Full Name: Indrajit Kumar
+- Professional Identity: Software Engineer | Full-Stack Development & AI Integration | Product Builder
+- Education: B.Tech in Computer Science (2023 – Expected 2027) at Jagannath University, Jaipur, Rajasthan, India.
+- Flagship Projects: PraGo (Healthcare AI Super App), Indra-MarketMind (Quantitative Financial AI Terminal), VELOCITY X (3D WebGL Engine), Yaadon Ki Duniya.
+- Contact: indrajitkumar23541@gmail.com | +91-7061661897 | Jaipur, Rajasthan, India.
+- Availability: Actively seeking Software Engineering Internships and Entry-Level Software Engineer roles (Remote / On-site).
+Be concise, professional, warm, and recruiter-focused.`;
 
-        if (boundedMessages.length === 0) {
-            return res.status(400).json({ error: 'Conversation messages payload is empty.' });
+        // 1. Guard system prompt selection: ensure authoritative Indrajit grounding
+        const clientSystemMessage = validMessages.find(m => m.role === 'system');
+        const systemContent = (clientSystemMessage && typeof clientSystemMessage.content === 'string' && clientSystemMessage.content.includes('Indrajit'))
+            ? clientSystemMessage.content.slice(0, 8000)
+            : DEFAULT_SYSTEM_PROMPT;
+
+        const guardedSystemMessage = {
+            role: 'system',
+            content: systemContent
+        };
+
+        // 2. Guard conversation turns: strictly allow only 'user' or 'assistant' roles with bounded content
+        const conversationTurns = validMessages
+            .filter(m => m.role === 'user' || m.role === 'assistant')
+            .map(m => ({
+                role: m.role,
+                content: m.content.slice(0, 4000)
+            }));
+
+        if (conversationTurns.length === 0) {
+            return res.status(400).json({ error: 'At least one user message is required in the conversation turns.' });
         }
+
+        // 3. Construct bounded message list: system prompt first, followed by at most 12 recent conversation turns
+        const boundedMessages = [
+            guardedSystemMessage,
+            ...conversationTurns.slice(-12)
+        ];
 
         // Get key securely from Vercel Environment Variables
         const apiKey = process.env.GROQ_API_KEY;

@@ -171,69 +171,108 @@ const server = http.createServer(async (req, res) => {
         pathname = '/index.html';
     }
 
-    const resolvedBase = path.resolve(__dirname);
-    const safePath = path.resolve(resolvedBase, '.' + path.normalize(pathname));
-    const relativePath = path.relative(resolvedBase, safePath);
-    const isContained = !relativePath.startsWith('..') && !path.isAbsolute(relativePath);
-
-    if (!isContained) {
-        res.statusCode = 403;
-        return res.end('Access Denied');
+    // Filesystem-aware static file containment check
+    const baseDir = path.resolve(__dirname);
+    let realBase = baseDir;
+    try {
+        realBase = fs.realpathSync(baseDir);
+    } catch {
+        realBase = baseDir;
     }
 
-    fs.stat(safePath, (err, stats) => {
-        if (err || !stats.isFile()) {
+    const requestedPath = path.resolve(baseDir, '.' + path.normalize(pathname));
+
+    fs.realpath(requestedPath, (realErr, canonicalPath) => {
+        if (realErr) {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
             return res.end(`
                 <!DOCTYPE html>
                 <html>
                 <head><title>404 Not Found</title></head>
-                <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #0b0f17; color: #fff;">
+                <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #FAF8F5; color: #1E1410;">
                     <h2>404 - Page or Resource Not Found</h2>
-                    <p><a href="/" style="color: #6366f1;">Back to Portfolio Home</a></p>
+                    <p><a href="/" style="color: #7A4B35;">Back to Portfolio Home</a></p>
                 </body>
                 </html>
             `);
         }
 
-        const ext = path.extname(safePath).toLowerCase();
-        const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-        const etag = `W/"${stats.size.toString(16)}-${Math.floor(stats.mtimeMs).toString(16)}"`;
-
-        // 304 Cache Validation
-        if (req.headers['if-none-match'] === etag) {
-            res.statusCode = 304;
-            return res.end();
+        // Filesystem-aware containment check: ensure canonical path is strictly within realBase
+        const rel = path.relative(realBase, canonicalPath);
+        if (rel.startsWith('..') || path.isAbsolute(rel)) {
+            res.statusCode = 403;
+            return res.end('Access Denied');
         }
 
-        res.setHeader('ETag', etag);
-        res.setHeader('Vary', 'Accept-Encoding');
-        if (pathname.startsWith('/assets/images/') || pathname.startsWith('/assets/docs/') || pathname.endsWith('.woff2') || pathname.endsWith('.woff')) {
-            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
-        } else {
-            res.setHeader('Cache-Control', 'no-cache, must-revalidate');
-        }
+        fs.stat(canonicalPath, (err, stats) => {
+            if (err || !stats.isFile()) {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                return res.end(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head><title>404 Not Found</title></head>
+                    <body style="font-family: sans-serif; text-align: center; padding: 50px; background: #FAF8F5; color: #1E1410;">
+                        <h2>404 - Page or Resource Not Found</h2>
+                        <p><a href="/" style="color: #7A4B35;">Back to Portfolio Home</a></p>
+                    </body>
+                    </html>
+                `);
+            }
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', contentType);
+            const ext = path.extname(canonicalPath).toLowerCase();
+            const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+            const etag = `W/"${stats.size.toString(16)}-${Math.floor(stats.mtimeMs).toString(16)}"`;
 
-        const isCompressible = /^(text\/|application\/javascript|application\/json|image\/svg\+xml)/.test(contentType);
-        const acceptEncoding = req.headers['accept-encoding'] || '';
+            // 304 Cache Validation
+            if (req.headers['if-none-match'] === etag) {
+                res.statusCode = 304;
+                return res.end();
+            }
 
-        if (isCompressible && acceptEncoding.includes('gzip')) {
-            res.setHeader('Content-Encoding', 'gzip');
-            const stream = fs.createReadStream(safePath);
-            const gzip = zlib.createGzip({ level: 6 });
-            stream.pipe(gzip).pipe(res);
-        } else {
-            const stream = fs.createReadStream(safePath);
-            stream.pipe(res);
-        }
+            res.setHeader('ETag', etag);
+            res.setHeader('Vary', 'Accept-Encoding');
+            if (pathname.startsWith('/assets/images/') || pathname.startsWith('/assets/docs/') || pathname.endsWith('.woff2') || pathname.endsWith('.woff')) {
+                res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+            } else {
+                res.setHeader('Cache-Control', 'no-cache, must-revalidate');
+            }
+
+            res.statusCode = 200;
+            res.setHeader('Content-Type', contentType);
+
+            const isCompressible = /^(text\/|application\/javascript|application\/json|image\/svg\+xml)/.test(contentType);
+            const acceptEncoding = req.headers['accept-encoding'] || '';
+
+            if (isCompressible && acceptEncoding.includes('gzip')) {
+                res.setHeader('Content-Encoding', 'gzip');
+                const stream = fs.createReadStream(canonicalPath);
+                const gzip = zlib.createGzip({ level: 6 });
+                stream.pipe(gzip).pipe(res);
+            } else {
+                const stream = fs.createReadStream(canonicalPath);
+                stream.pipe(res);
+            }
+        });
     });
 });
 
+// Guard startup and unhandled errors with non-zero exit status
+process.on('uncaughtException', (err) => {
+    console.error('\n⚠️ Startup/Runtime Uncaught Exception:', err);
+    process.exitCode = 1;
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason) => {
+    console.error('\n⚠️ Startup/Runtime Unhandled Rejection:', reason);
+    process.exitCode = 1;
+    process.exit(1);
+});
+
 server.on('error', (err) => {
+    process.exitCode = 1;
     if (err.code === 'EADDRINUSE') {
         console.error(`\n⚠️ Port ${PORT} is currently in use. Please stop the existing process or run with: PORT=3001 npm run dev\n`);
     } else {
