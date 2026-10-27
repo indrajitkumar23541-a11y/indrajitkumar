@@ -2713,8 +2713,14 @@ a {
 }
 
 .contact-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
     padding-top: 0.75rem;
     border-top: 1px solid var(--border-subtle);
+    margin-top: 0.85rem;
 }
 
 .contact-loc-tag {
@@ -3547,6 +3553,144 @@ a {
     background: var(--coffee-primary);
     color: #FFFFFF;
     transform: translateY(-1px);
+}
+
+/* Contact Form Trust & Delivery Assurance Box */
+.form-trust-box {
+    margin-top: 0.85rem;
+    padding: 0.75rem 1rem;
+    background: #FFFFFF;
+    border: 1px solid var(--coffee-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    box-shadow: 0 2px 8px rgba(40, 26, 20, 0.04);
+    transition: all var(--transition-fast);
+}
+
+.form-trust-box:hover {
+    border-color: var(--coffee-primary);
+    box-shadow: 0 6px 18px rgba(40, 26, 20, 0.08);
+    transform: translateY(-2px);
+}
+
+.trust-pill-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.trust-icon-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--coffee-light);
+    color: var(--coffee-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.trust-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.trust-heading-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.trust-heading {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-espresso);
+    font-family: var(--font-heading);
+    line-height: 1.25;
+}
+
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--coffee-primary);
+    background: var(--coffee-light);
+    border: 1px solid var(--coffee-border);
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    letter-spacing: 0.3px;
+}
+
+.trust-badge-sec {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: #15803D;
+    background: #DCFCE7;
+    padding: 0.1rem 0.45rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    letter-spacing: 0.3px;
+}
+
+.trust-subtext {
+    font-size: 0.73rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+.trust-pill-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    width: 100%;
+}
+
+.contact-hiring-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #15803D;
+    background: #DCFCE7;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    padding: 0.22rem 0.6rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-mono);
+    letter-spacing: 0.2px;
+}
+
+.contact-hiring-badge .pulse-indicator {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #22C55E;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
 }
 
 /* Education Verified Certifications */
