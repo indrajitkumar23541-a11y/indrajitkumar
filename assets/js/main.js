@@ -304,10 +304,10 @@ VERIFIED DOSSIER ON INDRAJIT KUMAR:
 RESPONSE GUIDELINES:
 - Be concise, professional, warm, and recruiter-focused.
 - Multilingual Support: You are fluent in both English and Hindi/Hinglish. If a user asks questions in Hindi or Hinglish (e.g. "Indrajit ke baare me batao", "Indrajit kaun hai?", "Kya projects banaye hain?", "Kaise sampark kare?"), respond naturally and professionally in conversational Hindi/Hinglish or English with complete clarity!
-- If asked for Indrajit's resume or CV, provide a friendly direct link to view and download his verified resume PDF: <a href="assets/docs/Indrajit_Kumar_Resume.pdf" target="_blank" style="color: var(--coffee-primary); font-weight: 600; text-decoration: underline;">Indrajit_Kumar_Resume.pdf</a>.
+- If asked for Indrajit's resume or CV, provide a friendly direct link to view and download his verified resume PDF: [Indrajit_Kumar_Resume.pdf](assets/docs/Indrajit_Kumar_Resume.pdf).
 - Highlight Indrajit's builder mindset, problem-solving skills, and ability to build end-to-end working applications.
 - Keep answers under 3-4 sentences or short, easily scannable bullet points.
-- Format responses nicely with HTML tags (<strong>, <em>, <ul>, <li>, <p>).
+- Format responses cleanly using standard markdown (bold **text**, bullet lists, and links [label](url)).
 - If asked unrelated questions, briefly answer then pivot back to Indrajit's engineering capabilities.`;
 
     // Multi-turn conversation history for Groq
@@ -431,11 +431,13 @@ RESPONSE GUIDELINES:
                     // Prevent javascript:, vbscript:, and data: URLs in links
                     if (tagName === 'A' && child.hasAttribute('href')) {
                         const href = child.getAttribute('href').trim().toLowerCase();
-                        if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('#')) {
+                        if (!href.startsWith('http://') && !href.startsWith('https://') && !href.startsWith('mailto:') && !href.startsWith('#') && !href.startsWith('assets/')) {
                             child.removeAttribute('href');
                         } else if (href.startsWith('http://') || href.startsWith('https://')) {
                             child.setAttribute('target', '_blank');
                             child.setAttribute('rel', 'noopener noreferrer');
+                        } else if (href.startsWith('assets/')) {
+                            child.setAttribute('target', '_blank');
                         }
                     }
 
@@ -557,7 +559,10 @@ RESPONSE GUIDELINES:
         if (!text) return '';
 
         // 1. Block remote markdown images: convert ![alt](url) to safe descriptive text
-        let sanitizedText = text.replace(/!\[([^\]]*)\]\([^\)]+\)/g, '[Image: $1]');
+        let sanitizedText = text
+            .replace(/!\[([^\]]*)\]\([^\)]+\)/g, '[Image: $1]')
+            .replace(/<a\s+[^>]*href=["']([^"']+)["'][^>]*>(.*?)<\/a>/gi, '[$2]($1)')
+            .replace(/<\/?(?:p|div|span|em|strong|b|i)[^>]*>/gi, '');
 
         function formatInline(str) {
             if (!str) return '';
@@ -571,9 +576,10 @@ RESPONSE GUIDELINES:
             // Escape all raw HTML entities so unescaped model output can never reach innerHTML
             s = escapeHtml(s);
 
-            // Links [text](url) - strictly allow only http:// and https:// protocols
-            s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g, (match, linkText, url) => {
-                return `<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+            // Links [text](url) - strictly allow http, https, mailto, and assets/ links
+            s = s.replace(/\[([^\]]+)\]\(((?:https?:\/\/|assets\/|mailto:|\/)[^\s\)]+)\)/g, (match, linkText, url) => {
+                const isExternal = url.startsWith('http://') || url.startsWith('https://');
+                return `<a href="${url}" ${isExternal ? 'target="_blank" rel="noopener noreferrer"' : 'target="_blank"'}>${linkText}</a>`;
             });
 
             // Bold **text** or __text__

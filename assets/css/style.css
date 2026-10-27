@@ -2260,10 +2260,6 @@ a {
 }
 
 @media (max-width: 640px) {
-    .ai-console-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
     .matrix-grid {
         grid-template-columns: 1fr;
     }
@@ -3282,32 +3278,128 @@ a {
         font-size: 0.82rem;
     }
 
-    /* AI Studio Mobile View */
+    /* IndraIntel AI Studio Mobile Polish */
+    .ai-terminal-console {
+        border-radius: var(--radius-lg);
+        height: auto;
+        min-height: 0;
+        box-shadow: var(--shadow-sm);
+    }
+
     .ai-console-header {
-        flex-direction: column;
-        align-items: flex-start;
+        padding: 0.85rem 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.6rem;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .ai-header-left {
         gap: 0.75rem;
-        padding: 1.05rem 1.15rem;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .ai-bot-avatar-wrap {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+    }
+
+    .ai-widget-title-row {
+        gap: 0.45rem;
+        flex-wrap: wrap;
+    }
+
+    .ai-widget-title {
+        font-size: 0.98rem;
+    }
+
+    .ai-live-badge {
+        font-size: 0.64rem;
+        padding: 0.12rem 0.45rem;
+    }
+
+    .ai-widget-desc {
+        display: none; /* Hide on mobile header to keep it compact and clean */
+    }
+
+    .ai-header-right {
+        flex-shrink: 0;
+    }
+
+    .ai-status-pill {
+        padding: 0.28rem 0.65rem;
+        font-size: 0.68rem;
+        gap: 0.35rem;
     }
 
     .ai-terminal-body {
-        padding: 1.15rem;
-        height: 270px;
+        padding: 1rem 1.1rem;
+        height: 330px;
+        min-height: 280px;
+        max-height: 380px;
+        gap: 0.85rem;
     }
 
     .ai-bubble {
-        max-width: 95%;
-        font-size: 0.88rem;
+        max-width: 92%;
+        font-size: 0.86rem;
+        line-height: 1.52;
+        padding: 0.75rem 0.95rem;
     }
 
     .prompt-chips-wrap {
-        padding: 0.75rem 1.15rem;
+        padding: 0.55rem 0.9rem;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
         gap: 0.4rem;
+        background: #FFFFFF;
+        border-top: 1px solid var(--border-subtle);
+    }
+
+    .prompt-chips-wrap::-webkit-scrollbar {
+        display: none;
+    }
+
+    .chip-label {
+        font-size: 0.7rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .prompt-chip {
+        font-size: 0.73rem;
+        padding: 0.3rem 0.7rem;
+        flex-shrink: 0;
+        white-space: nowrap;
     }
 
     .ai-input-form {
-        padding: 0.85rem 1.15rem 1rem;
-        gap: 0.65rem;
+        padding: 0.7rem 0.95rem 0.85rem;
+        gap: 0.55rem;
+    }
+
+    .ai-input-wrapper input {
+        padding: 0.65rem 0.95rem 0.65rem 2.2rem;
+        font-size: 16px !important;
+    }
+
+    .input-terminal-icon {
+        left: 0.85rem;
+        font-size: 0.75rem;
+    }
+
+    .btn-send {
+        padding: 0.65rem 1.15rem;
+        font-size: 0.84rem;
+        border-radius: var(--radius-full);
+        flex-shrink: 0;
     }
 
     .footer-container {
@@ -3485,6 +3577,32 @@ a {
         font-size: 0.73rem;
         line-height: 1.4;
     }
+
+    .ai-console-header {
+        padding: 0.75rem 0.95rem;
+    }
+
+    .ai-bot-avatar-wrap {
+        width: 34px;
+        height: 34px;
+    }
+
+    .ai-widget-title {
+        font-size: 0.94rem;
+    }
+
+    .ai-terminal-body {
+        padding: 0.85rem 0.95rem;
+        height: 300px;
+    }
+
+    .prompt-chips-wrap {
+        padding: 0.45rem 0.8rem;
+    }
+
+    .ai-input-form {
+        padding: 0.6rem 0.8rem 0.75rem;
+    }
 }
 
 /* Extra-Small Phones (380px and down) */
@@ -3541,6 +3659,10 @@ a {
     }
 
     .trust-icon-badge {
+        display: none;
+    }
+
+    .ai-status-pill {
         display: none;
     }
 }
