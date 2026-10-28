@@ -68,6 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const href = this.getAttribute('href');
             if (!href || href === '#' || href === '#!') return;
+
+            // On mobile & tablet, route AI Intel nav link directly to dedicated WhatsApp-style chat page
+            if (href === '#ai-assistant' && window.innerWidth <= 991) {
+                e.preventDefault();
+                window.location.href = 'chat.html';
+                return;
+            }
+
             const targetEl = document.querySelector(href);
             if (targetEl) {
                 e.preventDefault();
@@ -927,7 +935,7 @@ RESPONSE GUIDELINES:
                 formFeedback.className = 'form-feedback success';
                 formFeedback.innerHTML = `
                     <div style="display: flex; flex-direction: column; gap: 0.35rem; align-items: center; text-align: center;">
-                        <div><i class="fa-solid fa-circle-check"></i> <strong>Thank you, ${name}! Your message has been sent.</strong></div>
+                        <div><i class="fa-solid fa-circle-check"></i> <strong>Thank you, ${escapeHtml(name)}! Your message has been sent.</strong></div>
                         <div style="font-size: 0.78rem; color: var(--text-mocha);">Inquiry sent to <code>indrajitkumar23541@gmail.com</code>. (If checking for test emails, remember to check your Gmail <strong>Spam / All Mail</strong> folder).</div>
                         <div style="margin-top: 0.25rem;">
                             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=indrajitkumar23541@gmail.com&su=${mailtoSubject}&body=${mailtoBody}" target="_blank" rel="noopener noreferrer" style="font-size: 0.78rem; font-weight: 600; color: var(--coffee-primary); text-decoration: underline;">
@@ -1019,6 +1027,34 @@ RESPONSE GUIDELINES:
     if (resumeModal) {
         resumeModal.setAttribute('hidden', '');
         resumeModal.style.display = 'none';
+    }
+
+    /* -------------------------------------------------------------------------
+       9. FLOATING INDRAINTEL FAB CONTROLLER (MOBILE & TABLET EXCLUSIVE)
+       Pins WhatsApp-style floating AI button strictly to bottom-right of viewport
+       ------------------------------------------------------------------------- */
+    const fabBtn = document.getElementById('floating-ai-fab');
+    if (fabBtn) {
+        function syncFloatingFab() {
+            if (window.innerWidth <= 991) {
+                fabBtn.style.setProperty('display', 'flex', 'important');
+                fabBtn.style.setProperty('position', 'fixed', 'important');
+                fabBtn.style.setProperty('bottom', '24px', 'important');
+                fabBtn.style.setProperty('right', '20px', 'important');
+                fabBtn.style.setProperty('left', 'auto', 'important');
+                fabBtn.style.setProperty('top', 'auto', 'important');
+                fabBtn.style.setProperty('z-index', '999999', 'important');
+            } else {
+                fabBtn.style.setProperty('display', 'none', 'important');
+            }
+        }
+        fabBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'chat.html';
+        });
+        syncFloatingFab();
+        window.addEventListener('resize', syncFloatingFab, { passive: true });
+        window.addEventListener('orientationchange', syncFloatingFab, { passive: true });
     }
 
 });

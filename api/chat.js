@@ -2,13 +2,33 @@
  * VERCEL SERVERLESS FUNCTION: /api/chat
  * Secure server-side proxy for Groq Cloud API.
  * Keeps GROQ_API_KEY safe in environment variables away from the browser.
+ * Hardened against Prompt Injection, System Hijacking, and Unrestricted CORS.
  */
 
+const ALLOWED_ORIGINS = [
+    'https://indrajitkumar.me',
+    'https://www.indrajitkumar.me',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+];
+
+function isOriginAllowed(origin) {
+    if (!origin) return true; // Direct same-origin requests
+    if (ALLOWED_ORIGINS.includes(origin)) return true;
+    if (/^https:\/\/[a-z0-9-]+(?:\.[a-z0-9-]+)*\.vercel\.app$/i.test(origin)) return true;
+    return false;
+}
+
 export default async function handler(req, res) {
-    // Set CORS headers for all responses
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (isOriginAllowed(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    } else {
+        res.setHeader('Access-Control-Allow-Origin', 'https://indrajitkumar.me');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Vary', 'Origin');
 
     // Handle CORS preflight
     if (req.method === 'OPTIONS') {
@@ -20,7 +40,6 @@ export default async function handler(req, res) {
     // Health-check / ping endpoint
     if (req.method === 'GET') {
         const accept = req.headers['accept'] || '';
-        // If accessed directly from browser URL bar (HTML navigation), redirect to portfolio homepage
         if (accept.includes('text/html')) {
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
             return res.status(200).send(`
@@ -56,7 +75,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Only allow POST requests for chat completions
     if (req.method !== 'POST') {
         res.setHeader('Allow', ['GET', 'POST', 'OPTIONS']);
         return res.status(405).json({ error: 'Method Not Allowed' });
@@ -87,27 +105,27 @@ export default async function handler(req, res) {
             return res.status(400).json({ error: 'No valid messages with string role and content provided.' });
         }
 
-        const DEFAULT_SYSTEM_PROMPT = `You are the personal AI Assistant for Indrajit Kumar, integrated into his developer portfolio.
+        // AUTHORITATIVE IMMUTABLE SYSTEM PROMPT (Defends against prompt injection & hijacking)
+        const AUTHORITATIVE_SYSTEM_PROMPT = `You are the personal AI Assistant for Indrajit Kumar, integrated into his developer portfolio.
 Your role is to answer questions from recruiters, hiring managers, and engineers about Indrajit's technical skills, projects, background, and hiring availability.
 
 VERIFIED DOSSIER ON INDRAJIT KUMAR:
 - Full Name: Indrajit Kumar
 - Professional Identity: Software Engineer | Full-Stack Development & AI Integration | Product Builder
 - Education: B.Tech in Computer Science (2023 – Expected 2027) at Jagannath University, Jaipur, Rajasthan, India.
-- Flagship Projects: PraGo (Healthcare AI Super App), Indra-MarketMind (Quantitative Financial AI Terminal), VELOCITY X (3D WebGL Engine), Yaadon Ki Duniya.
+- Flagship Projects:
+  1. PraGo (Healthcare AI Super App, microservices, Gemini Vision, Razorpay, Docker)
+  2. Indra-MarketMind (Quantitative Financial AI Terminal, NLP sentiment, PyTorch Bi-LSTM, pgvector, Redis)
+  3. VELOCITY X (Console-grade 3D WebGL highway pursuit racing engine, locked 60-120 FPS)
+  4. Yaadon Ki Duniya (Interactive Audio-Visual Indian Nostalgia Platform, 700+ songs, Web Audio synthesis)
 - Contact: indrajitkumar23541@gmail.com | +91-7061661897 | Jaipur, Rajasthan, India.
 - Availability: Actively seeking Software Engineering Internships and Entry-Level Software Engineer roles (Remote / On-site).
 Be concise, professional, warm, and recruiter-focused.`;
 
-        // 1. Guard system prompt selection: ensure authoritative Indrajit grounding
-        const clientSystemMessage = validMessages.find(m => m.role === 'system');
-        const systemContent = (clientSystemMessage && typeof clientSystemMessage.content === 'string' && clientSystemMessage.content.includes('Indrajit'))
-            ? clientSystemMessage.content.slice(0, 8000)
-            : DEFAULT_SYSTEM_PROMPT;
-
+        // 1. Enforce server-side system prompt strictly. NEVER accept client system override.
         const guardedSystemMessage = {
             role: 'system',
-            content: systemContent
+            content: AUTHORITATIVE_SYSTEM_PROMPT
         };
 
         // 2. Guard conversation turns: strictly allow only 'user' or 'assistant' roles with bounded content
@@ -115,17 +133,17 @@ Be concise, professional, warm, and recruiter-focused.`;
             .filter(m => m.role === 'user' || m.role === 'assistant')
             .map(m => ({
                 role: m.role,
-                content: m.content.slice(0, 4000)
+                content: m.content.slice(0, 2000)
             }));
 
         if (conversationTurns.length === 0) {
             return res.status(400).json({ error: 'At least one user message is required in the conversation turns.' });
         }
 
-        // 3. Construct bounded message list: system prompt first, followed by at most 12 recent conversation turns
+        // 3. Construct bounded message list: system prompt first, followed by at most 10 recent conversation turns
         const boundedMessages = [
             guardedSystemMessage,
-            ...conversationTurns.slice(-12)
+            ...conversationTurns.slice(-10)
         ];
 
         // Get key securely from Vercel Environment Variables
@@ -133,7 +151,7 @@ Be concise, professional, warm, and recruiter-focused.`;
 
         if (!apiKey) {
             return res.status(500).json({
-                error: 'GROQ_API_KEY is not configured in Vercel project environment variables.'
+                error: 'GROQ_API_KEY is not configured in environment variables.'
             });
         }
 
@@ -160,12 +178,11 @@ Be concise, professional, warm, and recruiter-focused.`;
         }
 
         const data = await response.json();
-        // Explicitly report the model used by chat completions
         data.model = data.model || MODEL;
         return res.status(200).json(data);
 
     } catch (error) {
-        console.error('Serverless function error:', error);
-        return res.status(500).json({ error: error.message || 'Internal Server Error' });
+        console.error('Serverless chat error:', error);
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 }

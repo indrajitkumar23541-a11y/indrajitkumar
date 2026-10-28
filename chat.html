@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>IndraIntel AI Copilot — Interactive Assistant for Indrajit Kumar</title>
+    <meta name="description" content="Interactive AI assistant trained on Indrajit Kumar's software engineering background, full-stack architecture, code projects, and technical skills.">
+    <meta name="author" content="Indrajit Kumar">
+    <meta name="robots" content="index, follow">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://indrajitkumar.me/chat.html">
+
+    <!-- Theme Color & Mobile Chrome/Safari status bar -->
+    <meta name="theme-color" content="#1A120B">
+    <meta name="msapplication-navbutton-color" content="#1A120B">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css?v=4.0">
+
+    <!-- Self-Contained Pixel-Perfect WhatsApp Layout Styles -->
+    <style>
+        :root {
+            --wa-bg-canvas: #F8F5F0;
+            --wa-card-white: #FFFFFF;
+            --wa-coffee: #7A4B35;
+            --wa-coffee-dark: #4E2A18;
+            --wa-gold: #C68E3C;
+            --wa-espresso: #1A120B;
+            --wa-border: rgba(122, 75, 53, 0.12);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body.chat-page-body {
+            background: var(--wa-bg-canvas);
+            min-height: 100vh;
+            min-height: 100dvh;
+            height: 100vh;
+            height: 100dvh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #2C1B12;
+        }
+
+        .wa-chat-app {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: 100dvh;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+            background: var(--wa-card-white);
+            border-left: 1px solid var(--wa-border);
+            border-right: 1px solid var(--wa-border);
+            box-shadow: 0 14px 45px -10px rgba(26, 18, 11, 0.12);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        /* Top Header (WhatsApp Mobile Top Bar) */
+        .wa-header {
+            background: #FFFFFF;
+            padding: 0.65rem 1.15rem;
+            border-bottom: 1px solid var(--wa-border);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-shrink: 0;
+            z-index: 10;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .chat-header-left {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .wa-back-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--wa-espresso);
+            text-decoration: none;
+            font-size: 1.15rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .wa-back-btn:hover {
+            background: rgba(122, 75, 53, 0.08);
+            color: var(--wa-coffee);
+        }
+
+        .wa-avatar-wrap {
+            position: relative;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            padding: 1.5px;
+            background: linear-gradient(135deg, var(--wa-gold) 0%, var(--wa-coffee) 100%);
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(122, 75, 53, 0.2);
+        }
+
+        .wa-avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #1A120B;
+        }
+
+        .wa-online-dot {
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+            width: 12px;
+            height: 12px;
+            background: #22c55e;
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 0 6px rgba(34, 197, 94, 0.8);
+        }
+
+        .wa-header-meta {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .wa-title-row {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .wa-contact-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--wa-espresso);
+            line-height: 1.2;
+            margin: 0;
+            letter-spacing: -0.01em;
+            white-space: nowrap;
+        }
+
+        .wa-verified-badge {
+            color: #0284c7;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .wa-contact-status {
+            font-size: 0.74rem;
+            color: #16a34a;
+            font-weight: 600;
+            margin-top: 0.1rem;
+            white-space: nowrap;
+        }
+
+        .chat-header-actions {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .wa-action-resume {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            background: rgba(122, 75, 53, 0.06);
+            border: 1px solid var(--wa-border);
+            color: var(--wa-coffee);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .wa-action-resume:hover {
+            background: rgba(122, 75, 53, 0.14);
+            transform: translateY(-1px);
+        }
+
+        .wa-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(122, 75, 53, 0.06);
+            border: 1px solid var(--wa-border);
+            color: #715546;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        .wa-icon-btn:hover {
+            background: rgba(122, 75, 53, 0.14);
+            color: var(--wa-coffee);
+            transform: rotate(45deg);
+        }
+
+        /* Chat Messages Viewport (WhatsApp Canvas Wallpaper) */
+        .wa-chat-canvas {
+            flex: 1 1 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 1.15rem 1.25rem;
+            background-color: var(--wa-bg-canvas);
+            background-image: 
+                radial-gradient(rgba(122, 75, 53, 0.05) 1px, transparent 1px),
+                radial-gradient(rgba(198, 142, 60, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px, 12px 12px;
+            background-position: 0 0, 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Centered Date Badge */
+        .wa-date-divider {
+            align-self: center;
+            margin: 0.2rem 0;
+        }
+
+        .wa-date-divider span {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(122, 75, 53, 0.14);
+            color: #6E5346;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 0.25rem 0.85rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            display: inline-block;
+        }
+
+        /* WhatsApp Security Banner */
+        .wa-encryption-banner {
+            align-self: center;
+            background: #FFFBF5;
+            border: 1px solid rgba(198, 142, 60, 0.25);
+            color: #6E4522;
+            font-size: 0.72rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            margin: 0 auto;
+        }
+
+        .wa-encryption-banner i {
+            color: var(--wa-gold);
+        }
+
+        /* Message Bubbles */
+        .ai-bubble {
+            position: relative;
+            padding: 0.8rem 1.05rem 0.45rem;
+            max-width: 85%;
+            font-size: 0.92rem;
+            line-height: 1.55;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        }
+
+        .bot-bubble {
+            align-self: flex-start;
+            background: #FFFFFF;
+            border: 1px solid rgba(122, 75, 53, 0.1);
+            color: var(--wa-espresso);
+            border-radius: 4px 18px 18px 18px;
+        }
+
+        .bot-bubble .bubble-sender {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: var(--wa-coffee);
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.2px;
+        }
+
+        .bot-bubble .bubble-sender img {
+            border-radius: 50%;
+        }
+
+        .bot-bubble .bubble-content p {
+            margin: 0.35rem 0;
+        }
+        .bot-bubble .bubble-content p:first-child {
+            margin-top: 0;
+        }
+        .bot-bubble .bubble-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .bot-bubble .bubble-content a {
+            color: var(--wa-coffee);
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .user-bubble {
+            align-self: flex-end;
+            background: linear-gradient(135deg, var(--wa-coffee) 0%, #5E3624 100%);
+            color: #FFFFFF;
+            border-radius: 18px 4px 18px 18px;
+            box-shadow: 0 4px 14px rgba(122, 75, 53, 0.25);
+        }
+
+        .user-bubble .user-bubble-text {
+            word-break: break-word;
+        }
+
+        .wa-msg-meta {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.3rem;
+            margin-top: 0.25rem;
+            font-size: 0.68rem;
+            color: #8C7365;
+        }
+
+        .wa-user-meta {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .wa-double-check {
+            color: var(--wa-gold);
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Swipeable Prompt Chips Bar */
+        .wa-chips-bar {
+            padding: 0.6rem 1.15rem;
+            background: #FFFFFF;
+            border-top: 1px solid var(--wa-border);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            overflow-x: auto;
+            flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+
+        .wa-chips-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chat-chips-label {
+            font-size: 0.74rem;
+            font-weight: 700;
+            color: #8C7365;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-right: 0.2rem;
+        }
+
+        .prompt-chip {
+            background: rgba(122, 75, 53, 0.06);
+            border: 1px solid var(--wa-border);
+            padding: 0.32rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.76rem;
+            font-weight: 500;
+            color: #4A3327;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .prompt-chip:hover {
+            background: rgba(122, 75, 53, 0.15);
+            color: var(--wa-coffee);
+            transform: translateY(-1px);
+        }
+
+        /* Sticky Bottom Input Bar */
+        .wa-input-footer {
+            background: var(--wa-bg-canvas);
+            border-top: 1px solid var(--wa-border);
+            padding: 0.65rem 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .wa-input-form {
+            display: flex;
+            gap: 0.65rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .wa-input-pill {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: #FFFFFF;
+            border: 1px solid var(--wa-border);
+            border-radius: 28px;
+            padding: 0.4rem 0.85rem 0.4rem 0.95rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            transition: all 0.2s ease;
+        }
+
+        .wa-input-pill:focus-within {
+            border-color: var(--wa-coffee);
+            box-shadow: 0 0 0 3px rgba(122, 75, 53, 0.12);
+        }
+
+        .wa-pill-sparkle {
+            color: var(--wa-coffee);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .wa-input-pill input {
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: var(--wa-espresso);
+            padding: 0.35rem 0;
+        }
+
+        .wa-pill-attach {
+            color: #8C7365;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            flex-shrink: 0;
+            padding: 0.2rem;
+        }
+
+        .wa-pill-attach:hover {
+            color: var(--wa-coffee);
+        }
+
+        .wa-send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--wa-coffee) 0%, #5E3624 100%);
+            border: none;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(122, 75, 53, 0.35);
+            transition: all 0.2s ease;
+        }
+
+        .wa-send-btn:hover,
+        .wa-send-btn:active {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #6B3D27 0%, #4E2A18 100%);
+        }
+
+        /* Typing indicator */
+        .typing-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.75rem 1.1rem;
+            background: #FFFFFF;
+            border: 1px solid var(--wa-border);
+            border-radius: 4px 18px 18px 18px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            width: fit-content;
+            align-self: flex-start;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--wa-coffee);
+            border-radius: 50%;
+            animation: typingPulse 1.4s infinite ease-in-out both;
+        }
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typingPulse {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.35; }
+            40% { transform: scale(1.15); opacity: 1; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .wa-chat-app {
+                border-left: none;
+                border-right: none;
+                box-shadow: none;
+            }
+            .wa-header {
+                padding: 0.55rem 0.85rem;
+                gap: 0.55rem;
+            }
+            .chat-header-left {
+                gap: 0.55rem;
+            }
+            .wa-avatar-wrap {
+                width: 38px;
+                height: 38px;
+            }
+            .wa-contact-name {
+                font-size: 0.98rem;
+            }
+            .wa-contact-status {
+                font-size: 0.68rem;
+            }
+            .wa-action-resume span {
+                display: none;
+            }
+            .wa-action-resume {
+                padding: 0.4rem 0.6rem;
+            }
+            .wa-chat-canvas {
+                padding: 0.85rem 0.85rem;
+                gap: 0.75rem;
+            }
+            .ai-bubble {
+                max-width: 90%;
+                font-size: 0.88rem;
+                padding: 0.75rem 0.95rem 0.45rem;
+            }
+            .wa-chips-bar {
+                padding: 0.5rem 0.85rem;
+                gap: 0.4rem;
+            }
+            .wa-input-footer {
+                padding: 0.55rem 0.85rem max(0.55rem, env(safe-area-inset-bottom));
+            }
+            .wa-input-pill {
+                padding: 0.35rem 0.75rem 0.35rem 0.85rem;
+            }
+            .wa-input-pill input {
+                font-size: 16px;
+            }
+            .wa-send-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 0.92rem;
+            }
+        }
+    </style>
+</head>
+<body class="chat-page-body">
+
+    <!-- Dedicated Full-Height Chat App Container -->
+    <div class="chat-app-wrapper wa-chat-app">
+
+        <!-- Top App Bar (WhatsApp Meta AI Style Header) -->
+        <header class="chat-app-header wa-header">
+            <div class="chat-header-left">
+                <a href="index.html" class="wa-back-btn chat-back-btn" title="Return to main portfolio">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div class="wa-avatar-wrap chat-avatar-wrap">
+                    <picture>
+                        <source srcset="assets/images/ai_intel_avatar.webp" type="image/webp">
+                        <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel AI" class="wa-avatar-img chat-avatar-img" width="42" height="42">
+                    </picture>
+                    <span class="wa-online-dot chat-avatar-dot" title="Live Online"></span>
+                </div>
+                <div class="wa-header-meta chat-header-meta">
+                    <div class="wa-title-row chat-title-row">
+                        <h1 class="wa-contact-name chat-app-title">IndraIntel AI</h1>
+                        <span class="wa-verified-badge" title="Verified Assistant"><i class="fa-solid fa-certificate"></i></span>
+                    </div>
+                    <span class="wa-contact-status chat-app-status" id="ai-status-text">online · candidate copilot</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Chat Messages Viewport (WhatsApp Warm Canvas) -->
+        <main class="chat-messages-container wa-chat-canvas" id="ai-messages">
+            <!-- Centered Date Pill -->
+            <div class="wa-date-divider">
+                <span>TODAY</span>
+            </div>
+
+            <!-- WhatsApp Security / Verification Banner -->
+            <div class="wa-encryption-banner">
+                <i class="fa-solid fa-lock"></i>
+                <span>Direct candidate dossier transit · Verified data on Indrajit Kumar</span>
+            </div>
+
+            <!-- Initial Welcoming Message -->
+            <div class="ai-bubble bot-bubble wa-bubble">
+                <div class="bubble-sender">
+                    <img src="assets/images/ai_intel_avatar.webp" alt="IndraIntel" class="bubble-sender-avatar" width="20" height="20">
+                    <span>IndraIntel AI Copilot</span>
+                </div>
+                <div class="bubble-content">
+                    <p>Hello! I am <strong>IndraIntel</strong>, an interactive AI copilot configured with verified data on <strong>Indrajit Kumar</strong>.</p>
+                    <p>I can instantly answer questions about his <strong>full-stack engineering architecture</strong>, <strong>flagship projects (PraGo, Indra-MarketMind, VELOCITY-X)</strong>, <strong>B.Tech CSE degree</strong>, and <strong>hiring availability</strong>.</p>
+                    <p>Ask me anything or tap a quick query below:</p>
+                </div>
+                <div class="wa-msg-meta">
+                    <span class="wa-msg-time">Just now</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Horizontally Swipeable Quick Query Chips (WhatsApp Style) -->
+        <div class="chat-quick-chips-bar wa-chips-bar" id="prompt-chips-wrap">
+            <span class="chat-chips-label"><i class="fa-solid fa-bolt"></i> Quick Queries:</span>
+            <button type="button" class="prompt-chip" data-query="Can I view or download Indrajit's resume?">
+                📄 View Resume PDF
+            </button>
+            <button type="button" class="prompt-chip" data-query="What is Indrajit's core technical specialty?">
+                💡 Core Specialty
+            </button>
+            <button type="button" class="prompt-chip" data-query="Tell me about his AI and LLM integration experience.">
+                🤖 AI &amp; LLM Skills
+            </button>
+            <button type="button" class="prompt-chip" data-query="Is Indrajit available for internships and full-time roles?">
+                📅 Hiring Availability
+            </button>
+            <button type="button" class="prompt-chip" data-query="What makes Indrajit stand out as a fresher?">
+                ⭐ Key Advantages
+            </button>
+            <button type="button" class="prompt-chip" data-query="Tell me about Indrajit's top featured projects.">
+                🚀 Top Projects
+            </button>
+            <button type="button" class="prompt-chip" data-query="How can I contact or connect with Indrajit directly?">
+                📬 Contact Info
+            </button>
+        </div>
+
+        <!-- Sticky Bottom Chat Input Bar (WhatsApp Pill + Send Circle) -->
+        <footer class="chat-input-footer wa-input-footer">
+            <form class="chat-input-form wa-input-form" id="ai-form">
+                <div class="chat-input-box wa-input-pill">
+                    <i class="fa-solid fa-sparkles wa-pill-sparkle"></i>
+                    <input type="text" id="ai-user-input" placeholder="Message IndraIntel AI..." autocomplete="off" autofocus>
+                </div>
+                <button type="submit" class="chat-send-btn wa-send-btn" id="ai-send-btn" aria-label="Send message">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </footer>
+
+    </div>
+
+    <!-- Dedicated Chat Logic -->
+    <script src="assets/js/chat.js?v=4.0" defer></script>
+</body>
+</html>

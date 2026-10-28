@@ -169,6 +169,8 @@ const server = http.createServer(async (req, res) => {
     // Static File Serving with filesystem-aware containment check
     if (pathname === '/') {
         pathname = '/index.html';
+    } else if (pathname === '/chat') {
+        pathname = '/chat.html';
     }
 
     // Filesystem-aware static file containment check
@@ -203,6 +205,15 @@ const server = http.createServer(async (req, res) => {
         if (rel.startsWith('..') || path.isAbsolute(rel)) {
             res.statusCode = 403;
             return res.end('Access Denied');
+        }
+
+        // Block sensitive configuration files, dotfiles, and secrets from direct HTTP access
+        const basename = path.basename(canonicalPath).toLowerCase();
+        const SENSITIVE_BLOCKLIST = ['.env', '.env.local', '.env.preview.local', 'package.json', 'local-server.mjs', 'vercel.json'];
+        if (basename.startsWith('.') || SENSITIVE_BLOCKLIST.includes(basename) || canonicalPath.includes(path.sep + '.git' + path.sep)) {
+            res.statusCode = 403;
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            return res.end('Access Denied: Protected Resource');
         }
 
         fs.stat(canonicalPath, (err, stats) => {

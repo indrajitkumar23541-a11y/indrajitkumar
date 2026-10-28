@@ -170,11 +170,116 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
     <!-- Preload Critical Above-The-Fold Assets -->
-    <link rel="preload" href="assets/css/style.css" as="style">
+    <link rel="preload" href="assets/css/style.css?v=4.0" as="style">
     <link rel="preload" href="assets/images/indrajit_profile.webp" as="image" type="image/webp" fetchpriority="high">
 
     <!-- Primary Stylesheet -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=4.0">
+
+    <!-- Embedded Critical Styles for WhatsApp-Style Floating Action Button & AI Section Responsiveness -->
+    <style id="floating-fab-critical-css">
+        #floating-ai-fab {
+            position: fixed !important;
+            bottom: 24px !important;
+            right: 20px !important;
+            left: auto !important;
+            top: auto !important;
+            z-index: 999999 !important;
+            width: 48px !important;
+            height: 48px !important;
+            border-radius: 14px !important;
+            background: linear-gradient(135deg, #7A4B35 0%, #4E2A18 100%) !important;
+            border: 2px solid rgba(198, 142, 60, 0.75) !important;
+            box-shadow: 0 10px 28px -2px rgba(26, 18, 11, 0.45), 0 0 18px rgba(198, 142, 60, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            cursor: pointer !important;
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+            -webkit-tap-highlight-color: transparent !important;
+            transform: translateZ(0) !important;
+            -webkit-transform: translateZ(0) !important;
+        }
+        #floating-ai-fab:hover,
+        #floating-ai-fab:active {
+            transform: scale(1.06) translateY(-2px) translateZ(0) !important;
+            box-shadow: 0 14px 34px -2px rgba(26, 18, 11, 0.55), 0 0 24px rgba(198, 142, 60, 0.45) !important;
+        }
+        .whatsapp-fab-icon-box {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            overflow: hidden;
+            padding: 1.5px;
+            background: linear-gradient(135deg, #C68E3C 0%, #D4AF37 50%, #7A4B35 100%);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .whatsapp-fab-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: #1A120B;
+        }
+        .whatsapp-fab-dot,
+        .whatsapp-fab-bubble-badge {
+            display: none !important;
+        }
+        .old-whatsapp-fab-dot {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: #22c55e;
+            border: 2px solid #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+            animation: waPulse 2s infinite ease-in-out;
+        }
+        @keyframes waPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.75); }
+            50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+        }
+        .whatsapp-fab-bubble-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #C68E3C;
+            color: #1A120B;
+            border: 2px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.68rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+        }
+        @media (min-width: 992px) {
+            #floating-ai-fab {
+                display: none !important;
+            }
+            .ai-assistant-section {
+                display: block !important;
+            }
+        }
+        @media (max-width: 991px) {
+            #floating-ai-fab {
+                display: flex !important;
+            }
+            .ai-assistant-section {
+                display: none !important;
+            }
+        }
+    </style>
 
     <!-- Google Fonts: Outfit (Display & Headings), Plus Jakarta Sans (Editorial Body), Inter, JetBrains Mono (Non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -213,7 +318,7 @@
                 <a href="#education" class="nav-link">Education</a>
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#projects" class="nav-link">Projects</a>
-                <a href="#ai-assistant" class="nav-link">AI Intel</a>
+                <a href="#ai-assistant" class="nav-link ai-nav-pill" id="nav-ai-link"><i class="fa-solid fa-sparkles"></i> AI Intel</a>
                 <a href="#contact" class="nav-link">Contact</a>
             </nav>
 
@@ -1054,7 +1159,7 @@
             </div>
         </section>
 
-        <!-- Interactive AI Recruiter Assistant Widget (Unique Impressive Feature) -->
+        <!-- Interactive AI Recruiter Assistant Widget (Unique Impressive Feature - Visible on Desktop/Laptop) -->
         <section class="section ai-assistant-section" id="ai-assistant">
             <div class="container">
                 <div class="section-header ai-header-compact">
@@ -1079,36 +1184,39 @@
                                 </div>
                                 <div class="ai-header-meta">
                                     <div class="ai-widget-title-row">
-                                        <h3 class="ai-widget-title">IndraIntel Console</h3>
+                                        <h3 class="ai-widget-title">IndraIntel Terminal</h3>
                                         <span class="ai-live-badge"><span class="status-dot-pulse"></span> Live LLM</span>
                                     </div>
-                                    <p class="ai-widget-desc">Trained on Indrajit's resume, code projects, and engineering stack.</p>
+                                    <p class="ai-widget-desc">Powered by Groq Cloud &amp; Llama 3.3 · Sub-second latency</p>
                                 </div>
                             </div>
                             <div class="ai-header-right">
-                                <div class="ai-status-pill">
+                                <div class="ai-status-pill" id="ai-status-pill">
                                     <span class="status-dot-pulse"></span>
-                                    <span id="ai-status-text">IndraIntel AI · Online</span>
+                                    <span id="ai-status-label">Engine Ready</span>
                                 </div>
+                                <button type="button" class="btn-api-key" id="btn-api-key" title="Configure your custom Groq API Key">
+                                    <i class="fa-solid fa-key"></i>
+                                    <span id="api-key-btn-text">Groq Cloud</span>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Chat Messages Container -->
+                        <!-- Chat Message Terminal Viewport -->
                         <div class="ai-terminal-body" id="ai-messages">
+                            <!-- Initial Bot Greeting Bubble -->
                             <div class="ai-bubble bot-bubble">
                                 <div class="bubble-sender">
-                                    <picture>
-                                        <source srcset="assets/images/ai_intel_avatar.webp" type="image/webp">
-                                        <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel" class="bubble-sender-avatar" width="24" height="24" loading="lazy" decoding="async">
-                                    </picture>
-                                    <span>IndraIntel · Candidate Copilot</span>
+                                    <img src="assets/images/ai_intel_avatar.webp" alt="IndraIntel" class="bubble-sender-avatar" width="18" height="18">
+                                    <span>IndraIntel AI Copilot</span>
                                 </div>
-                                <p>Hello! I am an interactive dossier configured to answer any technical, architectural, or hiring questions about <strong>Indrajit Kumar</strong>. Ask me anything or click a quick prompt below:</p>
+                                <p>Hello! I am <strong>IndraIntel</strong>, an interactive AI copilot configured with verified data on <strong>Indrajit Kumar</strong>.</p>
+                                <p>Ask me anything about his technical stack, flagship projects, or academic background. Or tap a quick query below:</p>
                             </div>
                         </div>
 
-                        <!-- Quick Prompts Bar -->
-                        <div class="prompt-chips-wrap">
+                        <!-- Quick Prompt Chips -->
+                        <div class="prompt-chips-wrap" id="prompt-chips-wrap">
                             <span class="chip-label"><i class="fa-solid fa-bolt"></i> Quick Queries:</span>
                             <button type="button" class="prompt-chip" data-query="Can I view or download Indrajit's resume?">
                                 📄 View Resume PDF
@@ -1117,7 +1225,7 @@
                                 💡 Core Specialty
                             </button>
                             <button type="button" class="prompt-chip" data-query="Tell me about his AI and LLM integration experience.">
-                                🤖 AI & LLM Skills
+                                🤖 AI &amp; LLM Skills
                             </button>
                             <button type="button" class="prompt-chip" data-query="Is Indrajit available for internships and full-time roles?">
                                 📅 Hiring Availability
@@ -1511,6 +1619,16 @@
         </div>
     </div>
 
+    <!-- WhatsApp-Style Floating IndraIntel Action Button (Visible on Mobile & Tablet Only) -->
+    <a href="chat.html" class="floating-ai-fab whatsapp-style-fab" id="floating-ai-fab" style="position: fixed; bottom: 24px; right: 20px; z-index: 999999; width: 48px; height: 48px;" aria-label="Open IndraIntel AI Assistant" title="Chat with IndraIntel AI">
+        <div class="whatsapp-fab-icon-box">
+            <picture>
+                <source srcset="assets/images/ai_intel_avatar.webp" type="image/webp">
+                <img src="assets/images/ai_intel_avatar.jpg" alt="IndraIntel AI" class="whatsapp-fab-avatar" width="36" height="36" loading="lazy">
+            </picture>
+        </div>
+    </a>
+
     <!-- Toast Notification for Copying Email -->
     <div class="toast-notification" id="toast">
         <i class="fa-solid fa-circle-check"></i>
@@ -1519,6 +1637,6 @@
 
     <!-- Cinematic Smooth Scroll Engine (Lenis - Local High Performance Bundle) & Interactions -->
     <script src="assets/js/lenis.min.js"></script>
-    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/main.js?v=4.0" defer></script>
 </body>
 </html>
