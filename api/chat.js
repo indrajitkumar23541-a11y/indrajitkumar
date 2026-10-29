@@ -119,6 +119,14 @@ VERIFIED DOSSIER ON INDRAJIT KUMAR:
   3. VELOCITY X (Console-grade 3D WebGL highway pursuit racing engine, locked 60-120 FPS)
   4. Yaadon Ki Duniya (Interactive Audio-Visual Indian Nostalgia Platform, 700+ songs, Web Audio synthesis)
 - Contact: indrajitkumar23541@gmail.com | +91-7061661897 | Jaipur, Rajasthan, India.
+- Official Profiles:
+  • GitHub: https://github.com/indrajitkumar23541-a11y
+  • LinkedIn: https://www.linkedin.com/in/indrajit-kumar-221284218/
+  • LeetCode: https://leetcode.com/u/indrajitkumar23541/
+  • X (Twitter): https://x.com/INDRAJI58504547
+  • Instagram: https://www.instagram.com/tech_arcane.wizard/
+  • Facebook: https://www.facebook.com/profile.php?id=100067908091448
+  • Wikidata: https://www.wikidata.org/wiki/Q141880541
 - Availability: Actively seeking Software Engineering Internships and Entry-Level Software Engineer roles (Remote / On-site).
 Be concise, professional, warm, and recruiter-focused.`;
 

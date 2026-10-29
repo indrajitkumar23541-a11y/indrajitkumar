@@ -6,14 +6,21 @@
     <!-- Indrajit Kumar Official Portfolio Homepage -->
     <url>
         <loc>https://indrajitkumar.me/</loc>
-        <lastmod>2026-10-25</lastmod>
-        <changefreq>weekly</changefreq>
+        <lastmod>2026-10-28</lastmod>
+        <changefreq>daily</changefreq>
         <priority>1.0</priority>
+    </url>
+    <!-- IndraIntel AI Copilot Dedicated Standalone App -->
+    <url>
+        <loc>https://indrajitkumar.me/chat.html</loc>
+        <lastmod>2026-10-28</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
     </url>
     <!-- Official Verified ATS Resume PDF -->
     <url>
         <loc>https://indrajitkumar.me/assets/docs/Indrajit_Kumar_Resume.pdf</loc>
-        <lastmod>2026-10-25</lastmod>
+        <lastmod>2026-10-28</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>

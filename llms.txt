@@ -14,8 +14,11 @@ Indrajit Kumar is a Software Engineer specializing in Full-Stack Web Development
 - **Portfolio Website**: https://indrajitkumar.me/
 - **Official Resume PDF**: https://indrajitkumar.me/assets/docs/Indrajit_Kumar_Resume.pdf
 - **GitHub**: https://github.com/indrajitkumar23541-a11y
-- **LinkedIn**: https://www.linkedin.com/in/indrajit-kumar-221284218
+- **LinkedIn**: https://www.linkedin.com/in/indrajit-kumar-221284218/
 - **LeetCode**: https://leetcode.com/u/indrajitkumar23541/
+- **X (formerly Twitter)**: https://x.com/INDRAJI58504547 (@INDRAJI58504547)
+- **Instagram**: https://www.instagram.com/tech_arcane.wizard/ (@tech_arcane.wizard)
+- **Facebook**: https://www.facebook.com/profile.php?id=100067908091448
 - **Wikidata Entity**: https://www.wikidata.org/wiki/Q141880541
 - **Google Developer Profile**: https://g.dev/indrajitkumar
 

@@ -306,8 +306,12 @@ VERIFIED DOSSIER ON INDRAJIT KUMAR:
   • Phone: +91-7061661897
   • Resume: assets/docs/Indrajit_Kumar_Resume.pdf (ATS-compliant 1-page PDF format)
   • GitHub: https://github.com/indrajitkumar23541-a11y
-  • LinkedIn: https://www.linkedin.com/in/indrajit-kumar-221284218
+  • LinkedIn: https://www.linkedin.com/in/indrajit-kumar-221284218/
   • LeetCode: https://leetcode.com/u/indrajitkumar23541/
+  • X (Twitter): https://x.com/INDRAJI58504547
+  • Instagram: https://www.instagram.com/tech_arcane.wizard/
+  • Facebook: https://www.facebook.com/profile.php?id=100067908091448
+  • Wikidata: https://www.wikidata.org/wiki/Q141880541
 
 RESPONSE GUIDELINES:
 - Be concise, professional, warm, and recruiter-focused.
