@@ -15,6 +15,15 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+User-agent: msnbot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: Copilot
+Allow: /
+
 # Explicitly Welcome AI Search Engines & Retrieval Agents (GEO / AIO)
 User-agent: GPTBot
 Allow: /
